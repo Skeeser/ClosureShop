@@ -70,6 +70,7 @@ Java Web 课程的项目, 项目名字来自明日方舟 :stuck_out_tongue_close
 ## 软件架构
 
 Browser/Server Architecture
+
 <br>
 
 ## 系统架构
