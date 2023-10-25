@@ -22,7 +22,7 @@
 
 [简体中文](README.md)  | [English](README_EN.md) 
 
-课程的项目, 项目名字来自明日方舟:stuck_out_tongue_closed_eyes::stuck_out_tongue_closed_eyes::stuck_out_tongue_closed_eyes:
+Java Web课程的项目, 项目名字来自明日方舟:stuck_out_tongue_closed_eyes::stuck_out_tongue_closed_eyes::stuck_out_tongue_closed_eyes:
 
 画师:  \_QuAn\_ (侵删)
 
