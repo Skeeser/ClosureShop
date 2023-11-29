@@ -10,4 +10,35 @@
 *.sln
 *.sw?
 
+# vue
+
+/vuejs/.idea
+/vuejs/.vscode
+/vuejs/*.suo
+/vuejs/*.ntvs*
+/vuejs/*.njsproj
+/vuejs/*.sln
+/vuejs/*.sw?
+/vuejs/.DS_Store
+/vuejs/node_modules
+/vuejs/dist
+/vuejs/.env.local
+/vuejs/.env.*.local
+/vuejs/npm-debug.log*
+/vuejs/yarn-debug.log*
+/vuejs/yarn-error.log*
+
+
+
+# java
+
+/java/.idea
+/java/.vscode
+/java/*.suo
+/java/*.ntvs*
+/java/*.njsproj
+/java/*.sln
+/java/*.sw?
+
 # other's code
+/reference
