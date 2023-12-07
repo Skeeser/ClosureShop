@@ -9,7 +9,12 @@
     <!-- 卡片视图 -->
     <el-card>
       <!-- 警告区域 -->
-      <el-alert title="注意：只允许为第三级分类设置相关参数！" type="warning" show-icon :closable="false"></el-alert>
+      <el-alert
+        title="注意：只允许为第三级分类设置相关参数！"
+        type="warning"
+        show-icon
+        :closable="false"
+      ></el-alert>
 
       <!-- 选择商品分类区域 -->
       <el-row class="cat_opt">
@@ -34,7 +39,8 @@
             size="mini"
             :disabled="isBtnDisabled"
             @click="addDialogVisible = true"
-          >添加参数</el-button>
+            >添加参数</el-button
+          >
           <!-- 动态参数表格 -->
           <el-table :data="manyTableData" border stripe>
             <!-- 展开列 -->
@@ -45,7 +51,8 @@
                   :key="i"
                   closable
                   @close="handleClose(i, scope.row)"
-                >{{item}}</el-tag>
+                  >{{ item }}</el-tag
+                >
                 <!-- 输入Tag文本框 -->
                 <el-input
                   class="input-new-tag"
@@ -61,12 +68,16 @@
                   class="button-new-tag"
                   size="small"
                   @click="showInput(scope.row)"
-                >+ New Tag</el-button>
+                  >+ New Tag</el-button
+                >
               </template>
             </el-table-column>
             <!-- 索引列 -->
             <el-table-column type="index"></el-table-column>
-            <el-table-column label="参数名称" prop="attr_name"></el-table-column>
+            <el-table-column
+              label="参数名称"
+              prop="attr_name"
+            ></el-table-column>
             <el-table-column>
               <template slot-scope="scope">
                 <el-button
@@ -74,13 +85,15 @@
                   icon="el-icon-edit"
                   size="mini"
                   @click="showEditDialog(scope.row.attr_id)"
-                >编辑</el-button>
+                  >编辑</el-button
+                >
                 <el-button
                   type="danger"
                   icon="el-icon-delete"
                   size="mini"
                   @click="removeParams(scope.row.attr_id)"
-                >删除</el-button>
+                  >删除</el-button
+                >
               </template>
             </el-table-column>
           </el-table>
@@ -92,7 +105,8 @@
             size="mini"
             :disabled="isBtnDisabled"
             @click="addDialogVisible = true"
-          >添加属性</el-button>
+            >添加属性</el-button
+          >
           <!-- 静态属性表格 -->
           <el-table :data="onlyTableData" border stripe>
             <!-- 展开列 -->
@@ -104,7 +118,8 @@
                   :key="i"
                   closable
                   @close="handleClose(i, scope.row)"
-                >{{item}}</el-tag>
+                  >{{ item }}</el-tag
+                >
                 <!-- 输入Tag文本框 -->
                 <el-input
                   class="input-new-tag"
@@ -120,12 +135,16 @@
                   class="button-new-tag"
                   size="small"
                   @click="showInput(scope.row)"
-                >+ New Tag</el-button>
+                  >+ New Tag</el-button
+                >
               </template>
             </el-table-column>
             <!-- 索引列 -->
             <el-table-column type="index"></el-table-column>
-            <el-table-column label="属性名称" prop="attr_name"></el-table-column>
+            <el-table-column
+              label="属性名称"
+              prop="attr_name"
+            ></el-table-column>
             <el-table-column>
               <template slot-scope="scope">
                 <el-button
@@ -133,13 +152,15 @@
                   icon="el-icon-edit"
                   size="mini"
                   @click="showEditDialog(scope.row.attr_id)"
-                >编辑</el-button>
+                  >编辑</el-button
+                >
                 <el-button
                   type="danger"
                   icon="el-icon-delete"
                   size="mini"
                   @click="removeParams(scope.row.attr_id)"
-                >删除</el-button>
+                  >删除</el-button
+                >
               </template>
             </el-table-column>
           </el-table>
@@ -148,12 +169,17 @@
     </el-card>
     <!-- 添加参数对话框 -->
     <el-dialog
-      :title=" '添加' + getTitleText"
+      :title="'添加' + getTitleText"
       :visible.sync="addDialogVisible"
       width="50%"
       @close="addDialogClosed"
     >
-      <el-form :model="addFrom" :rules="addFromRules" ref="addFromRef" label-width="100px">
+      <el-form
+        :model="addFrom"
+        :rules="addFromRules"
+        ref="addFromRef"
+        label-width="100px"
+      >
         <el-form-item :label="getTitleText" prop="attr_name">
           <el-input v-model="addFrom.attr_name"></el-input>
         </el-form-item>
@@ -166,12 +192,17 @@
 
     <!-- 编辑参数对话框 -->
     <el-dialog
-      :title=" '修改' + getTitleText"
+      :title="'修改' + getTitleText"
       :visible.sync="editDialogVisible"
       width="50%"
       @close="editDialogClosed"
     >
-      <el-form :model="editFrom" :rules="editFromRules" ref="editFromRef" label-width="100px">
+      <el-form
+        :model="editFrom"
+        :rules="editFromRules"
+        ref="editFromRef"
+        label-width="100px"
+      >
         <el-form-item :label="getTitleText" prop="attr_name">
           <el-input v-model="editFrom.attr_name"></el-input>
         </el-form-item>
@@ -186,7 +217,7 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       // 商品分类列表
       cateList: [],
@@ -229,25 +260,25 @@ export default {
       }
     }
   },
-  created () {
+  created() {
     this.getCateList()
   },
   computed: {
     //   按钮需要被禁用返回true, 否则返回false
-    isBtnDisabled () {
+    isBtnDisabled() {
       if (this.selectedCateKeys.length !== 3) {
         return true
       }
       return false
     },
     // 当前选中的三级分类Id
-    getCateId () {
+    getCateId() {
       if (this.selectedCateKeys.length === 3) {
         return this.selectedCateKeys[2]
       }
       return null
     },
-    getTitleText () {
+    getTitleText() {
       if (this.activeTabsName === 'many') {
         return '动态参数'
       }
@@ -256,7 +287,7 @@ export default {
   },
   methods: {
     //   获取所有的商品分类列表
-    async getCateList () {
+    async getCateList() {
       const { data: res } = await this.$http.get('categories')
       if (res.meta.status !== 200) {
         return this.$message.error('获取商品数据列表失败！')
@@ -264,15 +295,15 @@ export default {
       this.cateList = res.data
     },
     // 级联选择框 选中变化 触发
-    handleChange () {
+    handleChange() {
       this.getParamsData()
     },
     // Tab页签点击事件的处理函数
-    handleTabsClick () {
+    handleTabsClick() {
       this.getParamsData()
     },
     // 获取参数的列表数据
-    async getParamsData () {
+    async getParamsData() {
       // 只允许选择三级分类：
       // 通过数组的长度判断
       if (this.selectedCateKeys.length !== 3) {
@@ -293,7 +324,7 @@ export default {
         return this.$message.error('获取参数列表失败！')
       }
 
-      res.data.forEach(item => {
+      res.data.forEach((item) => {
         //   通过三元表达式判断attr_vals是否为空
         item.attr_vals = item.attr_vals ? item.attr_vals.split(' ') : []
 
@@ -309,12 +340,12 @@ export default {
       }
     },
     // 监听对话框的关闭事件
-    addDialogClosed () {
+    addDialogClosed() {
       this.$refs.addFromRef.resetFields()
     },
     // 添加参数
-    addParams () {
-      this.$refs.addFromRef.validate(async valid => {
+    addParams() {
+      this.$refs.addFromRef.validate(async (valid) => {
         if (!valid) return
         const { data: res } = await this.$http.post(
           `categories/${this.getCateId}/attributes`,
@@ -332,7 +363,7 @@ export default {
       })
     },
     // 显示编辑对话框
-    async showEditDialog (attrId) {
+    async showEditDialog(attrId) {
       const { data: res } = await this.$http.get(
         `categories/${this.getCateId}/attributes/${attrId}`,
         {
@@ -346,12 +377,12 @@ export default {
       this.editDialogVisible = true
     },
     // 重置修改表单
-    editDialogClosed () {
+    editDialogClosed() {
       this.$refs.editFromRef.resetFields()
     },
     // 修改参数
-    editParams () {
-      this.$refs.editFromRef.validate(async valid => {
+    editParams() {
+      this.$refs.editFromRef.validate(async (valid) => {
         if (!valid) return
         const { data: res } = await this.$http.put(
           `categories/${this.getCateId}/attributes/${this.editFrom.attr_id}`,
@@ -369,7 +400,7 @@ export default {
       })
     },
     // 根据Id删除对应的参数项
-    async removeParams (attrId) {
+    async removeParams(attrId) {
       const confirmResult = await this.$confirm(
         '此操作将永久删除该参数, 是否继续?',
         '提示',
@@ -378,7 +409,7 @@ export default {
           cancelButtonText: '取消',
           type: 'warning'
         }
-      ).catch(err => err)
+      ).catch((err) => err)
       if (confirmResult !== 'confirm') {
         return this.$message.info('已取消删除！')
       }
@@ -392,7 +423,7 @@ export default {
       this.getParamsData()
     },
     // 文本框失去焦点,或者按下Enter触发
-    handleInputConfirm (row) {
+    handleInputConfirm(row) {
       // 输入的内容为空时，清空
       if (row.inputValue.trim().length === 0) {
         row.inputValue = ''
@@ -406,7 +437,7 @@ export default {
       this.saveAttrVals(row)
     },
     // 将对attr_vals（Tag） 的操作 保存到数据库
-    async saveAttrVals (row) {
+    async saveAttrVals(row) {
       const { data: res } = await this.$http.put(
         `categories/${this.getCateId}/attributes/${row.attr_id}`,
         {
@@ -421,16 +452,16 @@ export default {
       this.$message.success('修改参数项成功！')
     },
     // 点击按钮显示输入框
-    showInput (row) {
+    showInput(row) {
       row.inputVisible = true
       //   让输入框自动获取焦点
       // $nextTick方法的作用：当页面元素被重新渲染之后，才会至指定回调函数中的代码
-      this.$nextTick(_ => {
+      this.$nextTick((_) => {
         this.$refs.saveTagInput.$refs.input.focus()
       })
     },
     // 删除对应的参数可选项
-    handleClose (i, row) {
+    handleClose(i, row) {
       row.attr_vals.splice(i, 1)
       this.saveAttrVals(row)
     }

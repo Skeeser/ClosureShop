@@ -23,7 +23,9 @@
         <el-table-column label="订单价格" prop="order_price"></el-table-column>
         <el-table-column label="是否付款">
           <template slot-scope="scope">
-            <el-tag type="danger" size="mini" v-if="scope.row.pay_status">未付款</el-tag>
+            <el-tag type="danger" size="mini" v-if="scope.row.pay_status"
+              >未付款</el-tag
+            >
             <el-tag type="success" size="mini" v-else>已付款</el-tag>
           </template>
         </el-table-column>
@@ -31,7 +33,12 @@
         <el-table-column label="下单时间" prop="create_time"></el-table-column>
         <el-table-column label="操作">
           <template slot>
-            <el-button type="primary" size="mini" icon="el-icon-edit" @click="showEditDialog"></el-button>
+            <el-button
+              type="primary"
+              size="mini"
+              icon="el-icon-edit"
+              @click="showEditDialog"
+            ></el-button>
             <el-button
               type="success"
               size="mini"
@@ -79,18 +86,25 @@
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="addressDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+        <el-button type="primary" @click="dialogVisible = false"
+          >确 定</el-button
+        >
       </span>
     </el-dialog>
     <!-- 展示物流进度对话框 -->
-    <el-dialog title="查看物流进度" :visible.sync="progressDialogVisible" width="50%">
-    <!-- 时间线 -->
+    <el-dialog
+      title="查看物流进度"
+      :visible.sync="progressDialogVisible"
+      width="50%"
+    >
+      <!-- 时间线 -->
       <el-timeline>
         <el-timeline-item
           v-for="(activity, index) in progressInfo"
           :key="index"
           :timestamp="activity.time"
-        >{{activity.context}}</el-timeline-item>
+          >{{ activity.context }}</el-timeline-item
+        >
       </el-timeline>
     </el-dialog>
   </div>
@@ -100,7 +114,7 @@
 import cityData from './citydata.js'
 
 export default {
-  data () {
+  data() {
     return {
       // 订单列表查询参数
       queryInfo: {
@@ -132,11 +146,11 @@ export default {
       progressInfo: []
     }
   },
-  created () {
+  created() {
     this.getOrderList()
   },
   methods: {
-    async getOrderList () {
+    async getOrderList() {
       const { data: res } = await this.$http.get('orders', {
         params: this.queryInfo
       })
@@ -147,21 +161,21 @@ export default {
       this.orderList = res.data.goods
     },
     // 分页
-    handleSizeChange (newSize) {
+    handleSizeChange(newSize) {
       this.queryInfo.pagesize = newSize
       this.getOrderList()
     },
-    handleCurrentChange (newSize) {
+    handleCurrentChange(newSize) {
       this.queryInfo.pagenum = newSize
       this.getOrderList()
     },
-    showEditDialog () {
+    showEditDialog() {
       this.addressDialogVisible = true
     },
-    addressDialogClosed () {
+    addressDialogClosed() {
       this.$refs.addressFormRef.resetFields()
     },
-    async showProgressDialog () {
+    async showProgressDialog() {
       // 供测试的物流单号：1106975712662
       const { data: res } = await this.$http.get('/kuaidi/1106975712662')
       if (res.meta.status !== 200) {

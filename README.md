@@ -102,6 +102,10 @@ npm run build
 ```
 npm run lint
 ```
+- 安装依赖  
+```
+npm install
+```
 - 提交 build 后的网页
 ```
 npm run deploy
