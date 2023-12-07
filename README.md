@@ -58,11 +58,9 @@ Java Web 课程的项目, 项目名字来自明日方舟 :stuck_out_tongue_close
 - 客户的 浏览/购买 **日志** 记录
 
 ## 文件结构
-
-- Vue => 存放前端代码
-
-- Java => 存放后端代码
-
+- assets => 存放静态资源
+- vuejs => 存放前端代码
+- java => 存放后端代码
 - doc => 存放开发文档
 
 <br>
@@ -79,24 +77,44 @@ Linux, Windows
 
 <br>
 
-## 快速开始
-
-### 依赖检查
-
+## 依赖检查
 - node
+- npm
+- Tomcat
 
-  <br>
-
-### 构建
-
-<!-- 描述如何构建该项目 -->
 <br>
 
-### 运行
+## 构建
+### 前端
+- 项目设置
+```
+npm install --registry=https://registry.npmmirror.com
+```
+- 编译并在开发过程中进行热重载
+```
+npm run dev
+```
+- 编译并压缩用于生产环境
+```
+npm run build
+```
+- 检查并修复文件
+```
+npm run lint
+```
+- 提交 build 后的网页
+```
+npm run deploy
+```
+
+
+<br>
+
+## 运行
 
 <!-- 描述如何运行该项目 -->
 
-### 部署
+## 部署
 
 <br>
 
@@ -105,6 +123,7 @@ Linux, Windows
 直接访问登录网站即可
 
 如果访问不了则可以自己部署在服务器上  
+
 <br>
 
 ## 如何贡献
