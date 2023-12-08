@@ -5,6 +5,7 @@ import com.keeser.web.User.User;
 import com.keeser.web.common.ResultMetaJson;
 import com.keeser.web.common.ResultCode;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
@@ -16,6 +17,7 @@ import com.alibaba.fastjson.JSONObject;
 @Controller  // 其作用是将用户提交来的请求通过URL匹配，分发给不同的接收器（具体的Controller），该接收器会对其进行相应处理，然后返回处理结果。
 public class LoginController {
     // 自动注入, 好比告诉工人一辆火车需要引擎, 然后自动在spring容器中找到
+    @Autowired
     UserService userService;
 
     @CrossOrigin  // 处理跨域资源共享（CORS）

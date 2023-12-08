@@ -2,7 +2,7 @@ package com.keeser.web.User;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 // 此类用来定义用户属性, 同时使用jpa建立对数据库的映射
 // JPA 默认情况下会将字段名与数据库列名进行匹配，但在需要特殊命名的情况下
@@ -17,38 +17,38 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "mg_id")
-    int mg_id;
+    int mgId;
 
-    String mg_name;
-    String mg_pwd;
-    int mg_time;
-    int role_id;
-    String mg_mobile;
+    String mgName;
+    String mgPwd;
+    int mgTime;
+    int roleId;
+    String mgMobile;
     String email;
-    int mg_state;
+    int mgState;
 
     public int getId() {
-        return mg_id;
+        return mgId;
     }
 
     public void setId(int id) {
-        this.mg_id = id;
+        this.mgId = id;
     }
 
     public String getUsername() {
-        return mg_name;
+        return mgName;
     }
 
     public void setUsername(String username) {
-        this.mg_name = username;
+        this.mgName = username;
     }
 
     public String getPassword() {
-        return mg_pwd;
+        return mgPwd;
     }
 
     public void setPassword(String password) {
-        this.mg_pwd = password;
+        this.mgPwd = password;
     }
 
     public String getEmail(){
@@ -60,34 +60,34 @@ public class User {
     }
 
     public String getMobile(){
-        return mg_mobile;
+        return mgMobile;
     }
 
     public void setMobile(String mobile){
-        this.mg_mobile = mobile;
+        this.mgMobile = mobile;
     }
 
     public int getMgTime() {
-        return mg_time;
+        return mgTime;
     }
 
     public void setMgTime(int mgTime) {
-        this.mg_time = mgTime;
+        this.mgTime = mgTime;
     }
 
     public int getRoleId() {
-        return role_id;
+        return roleId;
     }
 
     public void setRoleId(int roleId) {
-        this.role_id = roleId;
+        this.roleId = roleId;
     }
 
     public int getMgState() {
-        return mg_state;
+        return mgState;
     }
 
     public void setMgState(int mgState) {
-        this.mg_state = mgState;
+        this.mgState = mgState;
     }
 }
