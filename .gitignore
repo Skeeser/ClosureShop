@@ -37,8 +37,8 @@
 /java/*.suo
 /java/*.ntvs*
 /java/*.njsproj
-/java/*.sln
+/java/*.sln 
 /java/*.sw?
-
+/java/db
 # other's code
 /reference

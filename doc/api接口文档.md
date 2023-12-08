@@ -1,4 +1,4 @@
-# 1. 电商管理后台 API 接口文档
+# 1. Closure电商平台 API 接口文档
 
 ## 1.1. API V1 接口说明
 
@@ -32,7 +32,7 @@
 | 404      | NOT FOUND             | 请求的资源不存在                                    |
 | 422      | Unprocesable entity   | [POST/PUT/PATCH] 当创建一个对象时，发生一个验证错误 |
 | 500      | INTERNAL SERVER ERROR | 内部错误                                            |
-|          |                       |                                                     |
+| 0        | JSON UNVAIL           | json无效                                            |
 
 ------
 
@@ -62,6 +62,8 @@
 
 - 响应数据
 
+>  登录成功
+
 ```json
 {
     "data": {
@@ -78,6 +80,21 @@
     }
 }
 ```
+
+> 登录失败
+
+```json
+{
+    "meta": {
+        "msg": "登录失败",
+        "status": 400
+    }
+}
+```
+
+
+
+
 
 ## 1.3. 用户管理
 

@@ -22,7 +22,7 @@ import 'nprogress/nprogress.css'
 import axios from 'axios'
 // 配置请求根路径
 // 本机地址
-axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/'
+axios.defaults.baseURL = 'http://127.0.0.1:8888/api/'
 
 // 远程后台地址 仅供参考
 // axios.defaults.baseURL = 'https://www.liulongbin.top:8888/api/private/v1/'
