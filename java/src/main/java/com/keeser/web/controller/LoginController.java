@@ -1,7 +1,7 @@
-package com.keeser.web.Login;
+package com.keeser.web.controller;
 
-import com.keeser.web.Service.UserService;
-import com.keeser.web.User.User;
+import com.keeser.web.service.UserService;
+import com.keeser.web.entity.User;
 import com.keeser.web.common.ResultMetaJson;
 import com.keeser.web.common.ResultCode;
 
@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
-import java.util.Objects;
 import com.alibaba.fastjson.JSONObject;
 
 // 本类负责数据交互, 接收前端发送的数据

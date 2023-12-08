@@ -1,6 +1,6 @@
 package com.keeser.web.dao;
 
-import com.keeser.web.User.User;
+import com.keeser.web.entity.User;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -1,8 +1,10 @@
-package com.keeser.web.User;
+package com.keeser.web.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
 
 // 此类用来定义用户属性, 同时使用jpa建立对数据库的映射
 // JPA 默认情况下会将字段名与数据库列名进行匹配，但在需要特殊命名的情况下
@@ -21,11 +23,33 @@ public class User {
 
     String mgName;
     String mgPwd;
-    int mgTime;
+    String mgTime;
     int roleId;
     String mgMobile;
     String mgEmail;
     int mgState;
+
+    public User(){
+
+    }
+
+    public User(String mgName, String mgPwd, String mgMobile, String mgEmail){
+        initUser();
+
+        this.mgName = mgName;
+        this.mgPwd = mgPwd;
+        this.mgMobile = mgMobile;
+        this.mgEmail = mgEmail;
+    }
+
+    public void initUser(){
+        // 默认在线
+        mgState = 1;
+        // 默认为普通用户
+        roleId = 31;
+        // 计算当前时间
+        mgTime =  LocalDateTime.now().toString();
+    }
 
     public int getId() {
         return mgId;
@@ -67,11 +91,11 @@ public class User {
         this.mgMobile = mobile;
     }
 
-    public int getMgTime() {
+    public String getMgTime() {
         return mgTime;
     }
 
-    public void setMgTime(int mgTime) {
+    public void setMgTime(String mgTime) {
         this.mgTime = mgTime;
     }
 

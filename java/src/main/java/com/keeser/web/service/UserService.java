@@ -1,6 +1,6 @@
-package com.keeser.web.Service;
+package com.keeser.web.service;
 
-import com.keeser.web.User.User;
+import com.keeser.web.entity.User;
 import com.keeser.web.dao.UserDAO;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class UserService {
         return userDAO.getByMgNameAndMgPwd(username, password);
     }
 
-    public void add(User user) {
-        userDAO.save(user);
+    public User add(User user) {
+        return userDAO.save(user);
     }
 }
