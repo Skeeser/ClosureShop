@@ -38,5 +38,9 @@ Spring Boot
 src/main/resources/application.properties  
 项目完成记得开源  
 
+### spring连接数据库
+ssh -f <user>@<jump_host_ip> -L <local_host_ip>:<arbitrary_local_port>:<db_host_ip>:<db_port> -N -i <private_key>
+and example would be
 
-
+ssh -f keeser@47.236.36.97 -L 127.0.0.1:3309:127.0.0.1:3306 -N -i private_key.pem
+ssh -f keeser@47.236.36.97 -L 127.0.0.1:3309:127.0.0.1:3306 -N 
