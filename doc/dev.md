@@ -24,6 +24,7 @@ Spring Boot
     - 参考已有项目的pom.xml , 配置依赖  
     - 配置完依赖后，还需要配置数据库。打开 src\main\resources\application.properties ，在原来的基础上，添加如下语句  
     ```
+    server.port=8888
     spring.datasource.url=jdbc:mysql://127.0.0.1:3306/white_jotter?characterEncoding=UTF-8
     spring.datasource.username=root
     spring.datasource.password=root
@@ -35,6 +36,7 @@ Spring Boot
 ### application.properties文件
 因为涉及账号密码, 暂不开源
 src/main/resources/application.properties  
+项目完成记得开源  
 
 
 
