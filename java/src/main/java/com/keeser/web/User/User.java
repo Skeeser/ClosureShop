@@ -1,8 +1,21 @@
 package com.keeser.web.User;
 
-// 此类用来定义用户属性
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
+
+// 此类用来定义用户属性, 同时使用jpa建立对数据库的映射
+
+@Entity  // 表示这是一个实体类
+@Table(name = "sp_manager")  // 指定表名
+// jpa生成的无需json化的属性, 忽略掉
+@JsonIgnoreProperties({"handler","hibernateLazyInitializer"})
 
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "mg_id")
+
     int id_;
     String username_;
     String password_;
