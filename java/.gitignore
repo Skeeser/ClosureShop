@@ -4,6 +4,9 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+# 涉及密码, 不开源
+src/main/resources/application.properties
+
 ### STS ###
 .apt_generated
 .classpath

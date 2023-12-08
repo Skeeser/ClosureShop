@@ -32,6 +32,9 @@ Spring Boot
     ```
     注意端口、数据库名、用户名、密码要与你想使用的数据库一致。
 
+### application.properties文件
+因为涉及账号密码, 暂不开源
+src/main/resources/application.properties  
 
 
 

@@ -27,7 +27,7 @@
 /vuejs/npm-debug.log*
 /vuejs/yarn-debug.log*
 /vuejs/yarn-error.log*
-
+/java/src/main/resources/application.properties
 
 
 # java
@@ -40,5 +40,7 @@
 /java/*.sln 
 /java/*.sw?
 /java/db
+/java/src/main/resources/application.properties
+
 # other's code
 /reference
