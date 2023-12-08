@@ -339,6 +339,7 @@ export default {
         const { data: res } = await this.$http.post('users', this.addUserForm)
         if (res.meta.status !== 201) {
           this.$message.error('添加用户失败！')
+          return
         }
         this.$message.success('添加用户成功！')
         // 隐藏添加用户对话框

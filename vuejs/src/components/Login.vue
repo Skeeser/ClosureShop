@@ -201,7 +201,6 @@ export default {
           // 返回值为promise，可加await简化操作 相应的也要加async
           const { data: res } = await this.$http.post('login', this.loginForm)
           console.log(res)
-          console.log(res.meta.status)
           if (res.meta.status !== 200) return this.$message.error('登录失败')
           this.$message.success('登录成功')
           // 1、将登陆成功之后的token, 保存到客户端的sessionStorage中; localStorage中是持久化的保存
@@ -218,29 +217,22 @@ export default {
     },
     // 注册的处理函数
     handleRegister() {
-      // 数据预验证
-      // ref 表单引用对象  vaild验证结果，是一个布尔值
-      // this.$refs.loginForm.validate(async (valid) => {
-      //   // 验证通过，发起请求
-      //   if (valid) {
-      //     // console.log('验证通过')
-      //     // this.$http.post('login', this.loginForm): 返回值为promise
-      //     // 返回值为promise，可加await简化操作 相应的也要加async
-      //     const { data: res } = await this.$http.post('login', this.loginForm)
-      //     console.log(res)
-      //     if (res.meta.status !== 200) return this.$message.error('登录失败')
-      //     this.$message.success('登录成功')
-      //     // 1、将登陆成功之后的token, 保存到客户端的sessionStorage中; localStorage中是持久化的保存
-      //     //   1.1 项目中出现了登录之外的其他API接口，必须在登陆之后才能访问
-      //     //   1.2 token 只应在当前网站打开期间生效，所以将token保存在sessionStorage中
-      //     window.sessionStorage.setItem('token', res.data.token)
-      //     // 2、通过编程式导航跳转到后台主页, 路由地址为：/home
-      //     this.$router.push('/home')
-      //   } else {
-      //     console.log('error submit!!')
-      //     return false
-      //   }
-      // })
+      // 提交请求前，表单预验证
+      this.$refs.addUserFormRef.validate(async (valid) => {
+        // console.log(valid)
+        // 表单预校验失败
+        if (!valid) return
+        const { data: res } = await this.$http.post('users', this.addUserForm)
+        console.log(res)
+        if (res.meta.status !== 201) {
+          this.$message.error('注册失败, 可能当前用户名已被占用！')
+          return
+        }
+        this.$message.success('注册成功！')
+        this.registerBoxVisible = false
+        this.loginForm.username = this.addUserForm.username
+        this.loginForm.password = this.addUserForm.password
+      })
     }
   }
 }
