@@ -24,7 +24,7 @@ public class User {
     int mgTime;
     int roleId;
     String mgMobile;
-    String email;
+    String mgEmail;
     int mgState;
 
     public int getId() {
@@ -52,11 +52,11 @@ public class User {
     }
 
     public String getEmail(){
-        return email;
+        return mgEmail;
     }
 
     public void setEmail(String email){
-        this.email = email;
+        this.mgEmail = email;
     }
 
     public String getMobile(){
