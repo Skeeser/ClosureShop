@@ -172,8 +172,8 @@ export default {
       },
       // 数据绑定返回的的表单对象
       loginForm: {
-        username: '',
-        password: ''
+        username: 'admin',
+        password: '123456'
       },
       // 具体的验证规则的定义
       // blur鼠标离开触发验证
@@ -201,6 +201,7 @@ export default {
           // 返回值为promise，可加await简化操作 相应的也要加async
           const { data: res } = await this.$http.post('login', this.loginForm)
           console.log(res)
+          console.log(res.meta.status)
           if (res.meta.status !== 200) return this.$message.error('登录失败')
           this.$message.success('登录成功')
           // 1、将登陆成功之后的token, 保存到客户端的sessionStorage中; localStorage中是持久化的保存

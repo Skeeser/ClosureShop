@@ -7,7 +7,7 @@ import com.alibaba.fastjson.JSONObject;
 
 public class ResultMetaJson {
 
-    private final String code_;
+    private final int code_;
     private final String msg_;
 
     // 默认无效
@@ -17,7 +17,7 @@ public class ResultMetaJson {
     }
 
     // 设置返回码和提示信息
-    public ResultMetaJson(String code, String msg) {
+    public ResultMetaJson(int code, String msg) {
         this.code_ = code;
         this.msg_ = msg;
     }
