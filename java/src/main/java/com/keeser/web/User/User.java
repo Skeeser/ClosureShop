@@ -16,49 +16,49 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "mg_id")
 
-    int id_;
-    String username_;
-    String password_;
-    String email_;
-    String mobile_;
+    int id;
+    String username;
+    String password;
+    String email;
+    String mobile;
 
     public int getId() {
-        return id_;
+        return id;
     }
 
     public void setId(int id) {
-        this.id_ = id;
+        this.id = id;
     }
 
     public String getUsername() {
-        return username_;
+        return username;
     }
 
     public void setUsername(String username) {
-        this.username_ = username;
+        this.username = username;
     }
 
     public String getPassword() {
-        return password_;
+        return password;
     }
 
     public void setPassword(String password) {
-        this.password_ = password;
+        this.password = password;
     }
 
     public String getEmail(){
-        return email_;
+        return email;
     }
 
     public void setEmail(String email){
-        this.email_ = email;
+        this.email = email;
     }
 
     public String getMobile(){
-        return mobile_;
+        return mobile;
     }
 
     public void setMobile(String mobile){
-        this.mobile_ = mobile;
+        this.mobile = mobile;
     }
 }
