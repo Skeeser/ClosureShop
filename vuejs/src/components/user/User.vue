@@ -37,8 +37,8 @@
         border：边框-->
         <el-table-column type="index" label="#"></el-table-column>
         <el-table-column prop="username" label="姓名"></el-table-column>
-        <el-table-column prop="email" label="班级"></el-table-column>
-        <el-table-column prop="mobile" label="学号"></el-table-column>
+        <el-table-column prop="email" label="邮箱"></el-table-column>
+        <el-table-column prop="mobile" label="手机号"></el-table-column>
         <el-table-column prop="role_name" label="角色"></el-table-column>
         <el-table-column label="状态">
           <template slot-scope="scope">
