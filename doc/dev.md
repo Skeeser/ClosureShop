@@ -42,5 +42,11 @@ src/main/resources/application.properties
 ssh -f <user>@<jump_host_ip> -L <local_host_ip>:<arbitrary_local_port>:<db_host_ip>:<db_port> -N -i <private_key>
 and example would be
 
-ssh -f keeser@47.236.36.97 -L 127.0.0.1:3309:127.0.0.1:3306 -N -i private_key.pem
+> ssh转发
 ssh -f keeser@47.236.36.97 -L 127.0.0.1:3309:127.0.0.1:3306 -N 
+
+### token
+参考 (token实现)<https://www.cnblogs.com/itdragon/p/12637923.html>
+
+### todos
+- [ ] 每次发送请求都进行token验证解析  

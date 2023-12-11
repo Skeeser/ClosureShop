@@ -1,9 +1,10 @@
 package com.keeser.web.controller;
 
+import com.keeser.web.common.ResultCode;
+import com.keeser.web.common.ResultMetaJson;
 import com.keeser.web.service.UserService;
 import com.keeser.web.entity.User;
-import com.keeser.web.common.ResultMetaJson;
-import com.keeser.web.common.ResultCode;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,8 @@ public class LoginController {
         String username = requestUser.getUsername();
         username = HtmlUtils.htmlEscape(username);
 
-        // 通过user service获取user对象
+        // 通过user service获取检查后的json对象
+        // return userService.checkLogin(username, requestUser.getPassword());
         User user = userService.get(username, requestUser.getPassword());
         if (null == user) {
             String message = "账号密码错误";
@@ -35,5 +37,6 @@ public class LoginController {
         } else {
             return new ResultMetaJson(ResultCode.STATUS_OK, "登录成功").getMetaJson();
         }
+
     }
 }

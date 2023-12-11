@@ -26,7 +26,7 @@
 
 Java Web 课程的项目, 项目名字来自明日方舟 :stuck_out_tongue_closed_eyes::stuck_out_tongue_closed_eyes::stuck_out_tongue_closed_eyes:
 
-前端基于 VUE2.0 实现, 后端则是 JSP 技术实现
+前端基于 VUE2.0 实现, 后端则是 spring 技术实现
 
 画师: \_QuAn\_ (侵删)
 

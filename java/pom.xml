@@ -28,6 +28,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- spring security -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
 		<!-- springboot tomcat 支持 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -121,7 +126,12 @@
 			<artifactId>fastjson</artifactId>
 			<version>1.2.35</version>
 		</dependency>
-
+		<!-- token生成的依赖	-->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>
