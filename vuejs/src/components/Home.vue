@@ -20,7 +20,7 @@
           :collapse-transition="false"
           router
           :default-active="activePath"
-          background-color="#535552"
+          background-color="#1a1c24"
           text-color="#fff"
           active-text-color="#bebec0"
         >
@@ -159,7 +159,7 @@ export default {
   margin-right: 10px;
 }
 .toggle-button {
-  background-color: #4a5064;
+  background-color: #000000;
   font-size: 10px;
   line-height: 24px;
   color: #fff;

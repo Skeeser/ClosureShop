@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 
 
 @Entity  // 表示这是一个实体类
-@Getter
+@Getter  // 千万注意不能用@Data, 要不然to_string相互调用会栈溢出
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
