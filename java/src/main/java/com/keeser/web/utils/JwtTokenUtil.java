@@ -5,7 +5,7 @@ import io.jsonwebtoken.ClaimsBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
-// import org.springframework.security.core.userdetails.UserDetails;  todo: 添加security支持
+// import org.springframework.security.core.userdetails.UserDetails;
 import io.jsonwebtoken.security.SecureDigestAlgorithm;
 import org.springframework.stereotype.Component;
 import java.util.*;
