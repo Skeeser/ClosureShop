@@ -29,14 +29,6 @@ public class LoginController {
         username = HtmlUtils.htmlEscape(username);
 
         // 通过user service获取检查后的json对象
-        // return userService.checkLogin(username, requestUser.getPassword());
-        User user = userService.get(username, requestUser.getPassword());
-        if (null == user) {
-            String message = "账号密码错误";
-            return new ResultMetaJson(ResultCode.STATUS_BAD_REQUEST, message).getMetaJson();
-        } else {
-            return new ResultMetaJson(ResultCode.STATUS_OK, "登录成功").getMetaJson();
-        }
-
+        return userService.checkLogin(username, requestUser.getPassword());
     }
 }

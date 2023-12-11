@@ -6,7 +6,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.DefaultClaims;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
+// import org.springframework.security.core.userdetails.UserDetails;  todo: 添加security支持
 import org.springframework.stereotype.Component;
 import java.util.*;
 
@@ -23,9 +23,9 @@ public class JwtTokenUtil {
     }
 
     // 验证令牌
-    public Boolean checkToken(String token, UserDetails userDetails){
+    public Boolean checkToken(String token, String username){
         try{
-            return parseJWT(token).get("userName") == userDetails.getUsername()
+            return parseJWT(token).get("userName") == username
                     && !isExpired(token);
         }catch (Exception e){
             return false;

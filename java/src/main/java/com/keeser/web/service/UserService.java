@@ -56,7 +56,7 @@ public class UserService {
         dataJson.put("mobile", user.getMobile());
         dataJson.put("email", user.getEmail());
         dataJson.put("token", token);
-        // ret_json.put("data", dataJson);
+        ret_json.put("data", dataJson);
         return ret_json;
 
     }
