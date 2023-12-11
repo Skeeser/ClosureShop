@@ -46,7 +46,11 @@ and example would be
 ssh -f keeser@47.236.36.97 -L 127.0.0.1:3309:127.0.0.1:3306 -N 
 
 ### token
-参考 (token实现)<https://www.cnblogs.com/itdragon/p/12637923.html>
+参考 
+https://www.cnblogs.com/itdragon/p/12637923.html  
+https://www.cnblogs.com/loveer/p/11429111.html  
+https://blog.csdn.net/weixin_42531072/article/details/130239087  
+https://blog.csdn.net/qq_50969362/article/details/134100542  
 
 ### todos
 - [ ] 每次发送请求都进行token验证解析  

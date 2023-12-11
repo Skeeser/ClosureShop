@@ -1,25 +1,32 @@
 package com.keeser.web.utils;
 
-
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ClaimsBuilder;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.impl.DefaultClaims;
-import org.springframework.beans.factory.annotation.Value;
+import io.jsonwebtoken.security.Keys;
+
 // import org.springframework.security.core.userdetails.UserDetails;  todo: 添加security支持
+import io.jsonwebtoken.security.SecureDigestAlgorithm;
 import org.springframework.stereotype.Component;
 import java.util.*;
+import javax.crypto.SecretKey;
+
 
 @Component  // 代表spring组件
 public class JwtTokenUtil {
     // 私钥
-    private String secret = "3MnJb57tW9TAvkYFQEDOgLdSRuCzmXcS";
+    private final String secret = "3MnJb57tW9TAvkYFQEDOgLdSRuCzmXcS";
+    private final long expiration = 24 * 60 * 60;
+    // 加密算法
+    private final SecureDigestAlgorithm<SecretKey, SecretKey> ALGORITHM = Jwts.SIG.HS256;
+    // 秘钥实例
+    private final SecretKey KEY = Keys.hmacShaKeyFor(secret.getBytes());
 
     // 生成令牌
     public String generateToken(String user_name){
-        Claims claims = Jwts.claims();
-        claims.put("userName", user_name);
-        return generateJWT(claims);
+        ClaimsBuilder claims_builder = Jwts.claims();
+        claims_builder.add("userName", user_name);
+        return generateJWT(claims_builder);
     }
 
     // 验证令牌
@@ -62,24 +69,37 @@ public class JwtTokenUtil {
     }
 
     // 生成秘钥
-    private String generateJWT(Claims claims){
-        long expiration = 24 * 60 * 60;
-        return Jwts.builder()
-                .setIssuer("auth0")
-                .setClaims(claims)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + expiration * 1000))
-                .signWith(SignatureAlgorithm.HS256, secret)
-                .compact();
+    private String generateJWT(ClaimsBuilder claims_builder){
+        try {
+            // 令牌id
+            String uuid = UUID.randomUUID().toString();
+            return Jwts.builder()
+                    // 设置头部信息header
+                    .header()
+                    .add("typ", "JWT")
+                    .add("alg", "HS256")
+                    .and()
+                    .claims(claims_builder.build())
+                    .id(uuid)
+                    .issuedAt(new Date())
+                    .issuer("auth0")
+                    .expiration(new Date(System.currentTimeMillis() + expiration * 1000))
+                    .signWith(KEY, ALGORITHM)
+                    .compact();
+        }
+        catch (Exception e){
+            return "";
+        }
     }
 
     // 解析秘钥
     private Claims parseJWT(String token){
         try{
             return Jwts.parser()
-                    .setSigningKey(secret)
-                    .parseClaimsJws(token)
-                    .getBody();
+                    .verifyWith(KEY)
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload();
         }catch (Exception e){
             return null;
         }
