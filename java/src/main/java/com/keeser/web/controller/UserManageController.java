@@ -19,7 +19,7 @@ public class UserManageController {
     UserService userService;
 
     @CrossOrigin  // 处理跨域资源共享（CORS）
-    @PostMapping(value = "api/users")  // 方法是用来处理 HTTP POST 请求的
+    @PostMapping(value = "api/register")  // 方法是用来处理 HTTP POST 请求的
     @ResponseBody
     public JSONObject register(@RequestBody User requestUser) {
         // 对 html 标签进行转义，防止 XSS 攻击

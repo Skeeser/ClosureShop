@@ -222,7 +222,10 @@ export default {
         // console.log(valid)
         // 表单预校验失败
         if (!valid) return
-        const { data: res } = await this.$http.post('users', this.addUserForm)
+        const { data: res } = await this.$http.post(
+          'register',
+          this.addUserForm
+        )
         console.log(res)
         if (res.meta.status !== 201) {
           this.$message.error('注册失败, 可能当前用户名已被占用！')

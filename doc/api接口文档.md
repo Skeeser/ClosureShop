@@ -92,7 +92,50 @@
 }
 ```
 
+### 1.2.2. 注册验证接口
+- 请求路径：register
+- 请求方法：post
+- 请求参数
 
+| 参数名   | 参数说明 | 备注     |
+| -------- | -------- | -------- |
+| username | 用户名称 | 不能为空 |
+| password | 用户密码 | 不能为空 |
+| email    | 邮箱     | 可以为空 |
+| mobile   | 手机号   | 可以为空 |
+
+- 响应参数
+
+| 参数名   | 参数说明    | 备注 |
+| -------- | ----------- | ---- |
+| id       | 用户 ID     |      |
+| rid      | 用户角色 ID |      |
+| username | 用户名      |      |
+| mobile   | 手机号      |      |
+| email    | 邮箱        |      |
+
+- 响应数据
+
+```json
+{
+    "data": {
+        "id": 28,
+        "username": "tige1200",
+        "mobile": "test",
+        "type": 1,
+        "openid": "",
+        "email": "test@test.com",
+        "create_time": "2017-11-10T03:47:13.533Z",
+        "modify_time": null,
+        "is_delete": false,
+        "is_active": false
+    },
+    "meta": {
+        "msg": "用户创建成功",
+        "status": 201
+    }
+}
+```
 
 
 
