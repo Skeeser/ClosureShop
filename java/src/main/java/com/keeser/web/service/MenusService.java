@@ -7,7 +7,14 @@ import com.keeser.web.common.ResultMetaJson;
 import com.keeser.web.dao.PermissionApiDAO;
 import com.keeser.web.dao.PermissionDAO;
 import com.keeser.web.entity.Permission;
+import com.keeser.web.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -39,12 +46,19 @@ public class MenusService {
 
         JSONObject ret_json = new ResultMetaJson(ResultCode.STATUS_OK, "获取菜单列表成功").getMetaJson();
 
-        // 用hashmap存储子目录
+        // 用hashmap存储子目录和Permission对象
         HashMap<Integer, ArrayList<JSONObject>> childMenu = new HashMap<>();
+        HashMap<Integer, Permission> permissionHashMap = new HashMap<>();
+        // 获取当前用户的role id
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User)authentication.getPrincipal();
 
-        // 获取
-        ArrayList<JSONObject> dara_array = new ArrayList<>();
-        // 遍历菜单
+        ArrayList<JSONObject> data_array = new ArrayList<>();
+
+        // 第一次遍历菜单
+
+
+        // 第二次遍历菜单
         for(Permission permission: menus){
             JSONObject temp = new JSONObject();
             temp.put("id", permission.getPsId());
@@ -52,8 +66,8 @@ public class MenusService {
             temp.put("path", permission.getPermissionApi().getPsApiPath());
             int psPid = permission.getPsPid();
             if(permission.getPsLevel() == 0){  // 0级目录
-                dara_array.add(temp);
-
+                int pid = permission.getPsId();
+                data_array.add(temp);
             }else if(permission.getPsLevel() == 1) {  // 1级目录
                 childMenu.computeIfAbsent(psPid, k -> new ArrayList<JSONObject>());
                 childMenu.get(psPid).add(temp);
@@ -61,14 +75,14 @@ public class MenusService {
         }
 
         // 遍历data
-        for(JSONObject json: dara_array){
+        for(JSONObject json: data_array){
             ArrayList<JSONObject> tmp_array = childMenu.get(json.getInteger("id"));
             if(tmp_array != null){
                 json.put("children", tmp_array);
             }
 
         }
-        ret_json.put("data", dara_array);
+        ret_json.put("data", data_array);
 
         return ret_json;
     }
