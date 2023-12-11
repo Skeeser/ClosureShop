@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 @Table(name = "sp_manager")  // 指定表名
 // jpa生成的无需json化的属性, 忽略掉
 @JsonIgnoreProperties({"handler","hibernateLazyInitializer"})
-
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

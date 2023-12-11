@@ -5,10 +5,7 @@
       <el-col :span="16">
         <div id="main" style="width: 1000px; height: 600px"></div>
       </el-col>
-      <el-col :span="6">
-        <p>欢迎一起学习讨论</p>
-        <p>QQ: 1191448939</p>
-      </el-col>
+      <el-col :span="6"> </el-col>
     </el-row>
   </div>
 </template>
