@@ -30,10 +30,9 @@ public class JwtTokenUtil {
     }
 
     // 验证令牌
-    public Boolean checkToken(String token, String username){
+    public Boolean checkToken(String token){
         try{
-            return parseJWT(token).get("userName") == username
-                    && !isExpired(token);
+            return parseJWT(token) != null && !isExpired(token);
         }catch (Exception e){
             return false;
         }
