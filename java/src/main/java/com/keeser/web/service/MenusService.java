@@ -29,6 +29,8 @@ import java.util.List;
 public class MenusService {
     @Autowired
     PermissionDAO permissionDAO;
+    @Autowired
+    RolesService rolesService;
 
     // 将取到的数据进行嵌套处理, 返回菜单json
     public JSONObject getMenus(){
@@ -49,17 +51,23 @@ public class MenusService {
         // 用hashmap存储子目录和Permission对象
         HashMap<Integer, ArrayList<JSONObject>> childMenu = new HashMap<>();
         HashMap<Integer, Permission> permissionHashMap = new HashMap<>();
-        // 获取当前用户的role id
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User)authentication.getPrincipal();
+
+        ArrayList<Integer> ids = getMenuIds();
 
         ArrayList<JSONObject> data_array = new ArrayList<>();
 
         // 第一次遍历菜单
-
+        for(Permission permission: menus){
+            // 将对应的对象放进哈希表中
+            permissionHashMap.put(permission.getPsId(), permission);
+        }
 
         // 第二次遍历菜单
-        for(Permission permission: menus){
+        for(Integer id: ids){
+            Permission permission = permissionHashMap.get(id);
+            if(permission == null){
+                continue;
+            }
             JSONObject temp = new JSONObject();
             temp.put("id", permission.getPsId());
             temp.put("authName", permission.getPsName());
@@ -87,6 +95,11 @@ public class MenusService {
         return ret_json;
     }
 
-
+    private ArrayList<Integer> getMenuIds(){
+        // 获取当前用户的role id
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User)authentication.getPrincipal();
+        return rolesService.getPsIdsArrayByRoleId(user.getRoleId());
+    }
 
 }
