@@ -18,11 +18,14 @@ public class Permission {
     // 定义主键
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ps_id")
-    int psId;
+    @Column(name = "psId")
+    private int psId;
 
-    String psName;  // 权限名称
-    int psPid;  // 父级id
-    int psLevel;  // 权限等级
+    private String psName;  // 权限名称
+    private int psPid;  // 父级id
+    private int psLevel;  // 权限等级
+
+    @OneToOne(mappedBy = "permission")
+    private PermissionApi permissionApi;
 
 }

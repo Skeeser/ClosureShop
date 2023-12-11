@@ -52,5 +52,9 @@ https://www.cnblogs.com/loveer/p/11429111.html
 https://blog.csdn.net/weixin_42531072/article/details/130239087  
 https://blog.csdn.net/qq_50969362/article/details/134100542  
 
+
+### jpa连表实现
+https://blog.51cto.com/u_15067236/4193000  
+
 ### todos
 - [ ] 每次发送请求都进行token验证解析  

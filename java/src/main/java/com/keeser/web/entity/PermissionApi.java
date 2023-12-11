@@ -20,10 +20,15 @@ public class PermissionApi {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    int id;
+    private int id;
 
-    int psId;  // 权限id
-    String psApiPath;  // 权限路径
+    // private int psId;  // 权限id
+
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "psId")
+    private Permission permission;
+
+    private String psApiPath;  // 权限路径
 
 
 }

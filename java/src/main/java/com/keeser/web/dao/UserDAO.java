@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 // Data Access Object（数据访问对象，DAO）即用来操作数据库的对象
 // 通过继承 JpaRepository 的方式构建 DAO。 定义符合规范的方法即可, 无需自己写sql语句
-@EntityScan("com.keeser.web.User.User")
+@EntityScan("com.keeser.web.entity.User")
 public interface UserDAO extends JpaRepository<User, Integer>{
     User findByMgName(String username);
 

@@ -494,7 +494,7 @@ type=tree
 
 ```json
 {
-    "data":
+    "data": [
         {
             "id": 101,
             "authName": "商品管理",
@@ -505,9 +505,12 @@ type=tree
                     "authName": "商品列表",
                     "path": null,
                     "children": []
-                }
+                },
+                ...
             ]
-        }
+        },
+        ...
+    ],
     "meta": {
         "msg": "获取菜单列表成功",
         "status": 200
