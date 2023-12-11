@@ -10,12 +10,15 @@ import java.time.LocalDateTime;
 // JPA 默认情况下会将字段名与数据库列名进行匹配，但在需要特殊命名的情况下
 // （如数据库中的列名与 Java 中的字段名不一致），使用 @Column 注解可以手动指定映射关系。
 
+
+
 @Entity  // 表示这是一个实体类
 @Table(name = "sp_manager")  // 指定表名
 // jpa生成的无需json化的属性, 忽略掉
 @JsonIgnoreProperties({"handler","hibernateLazyInitializer"})
 public class User {
     @Id
+    // 主键生成策略,IDENTITY表示主键由数据库生成, 采用数据库自增长
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "mg_id")
     int mgId;
