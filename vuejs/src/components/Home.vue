@@ -3,10 +3,10 @@
     <!-- 头部 -->
     <el-header>
       <div>
-        <img src="../assets/logo.png" alt />
-        <span>Closure电商平台</span>
+        <img src="@/assets/icons/svg/app.svg" style="width: 80%" alt />
+        <span style="white-space: nowrap">Closure电商平台</span>
       </div>
-      <el-button type="info" @click="logout">退出</el-button>
+      <el-button class="login_out" type="info" @click="logout">退出</el-button>
     </el-header>
     <!-- 主体 -->
     <el-container>
@@ -14,14 +14,15 @@
       <el-aside :width="isCollapse ? '64px' : '200px'">
         <div class="toggle-button" @click="togleCollapse">|||</div>
         <el-menu
+          style="object-fit: contain"
           unique-opened
           :collapse="isCollapse"
           :collapse-transition="false"
           router
           :default-active="activePath"
-          background-color="#333744"
+          background-color="#535552"
           text-color="#fff"
-          active-text-color="#409FFF"
+          active-text-color="#bebec0"
         >
           <!-- :unique-opened="true"->只允许展开一个菜单 -->
           <!-- :collapse-transition="false" -> 关闭动画 -->
@@ -56,17 +57,25 @@
         </el-menu>
       </el-aside>
       <!-- 内容主体 -->
-      <el-main>
-        <router-view></router-view>
+      <el-main
+        class="back_main"
+        :style="'background-image:url(' + Background + ');'"
+      >
+        <router-view
+          :style="'background: rgba(255, 255, 255, 0.85); padding: 20px; vertical-align: middle;'"
+        >
+        </router-view>
       </el-main>
     </el-container>
   </el-container>
 </template>
 
 <script>
+import Background from '@/assets/images/arknights_bg03.jpg'
 export default {
   data() {
     return {
+      Background: Background,
       // 左侧菜单数据
       menuList: [],
       iconObj: {
@@ -83,6 +92,7 @@ export default {
     }
   },
   created() {
+    document.title = '主页面'
     this.getMenuList()
     this.activePath = window.sessionStorage.getItem('activePath')
   },
@@ -97,7 +107,7 @@ export default {
       const { data: res } = await this.$http.get('menus')
       if (res.meta.status !== 200) return this.$message.error(res.meta.msg)
       this.menuList = res.data
-      // console.log(res)
+      console.log(res)
     },
     // 菜单的折叠与展开
     togleCollapse() {
@@ -119,7 +129,7 @@ export default {
   background-color: #373f41;
   display: flex;
   justify-content: space-between;
-  padding-left: 0;
+  padding-left: 40px;
   align-items: center;
   color: #fff;
   font-size: 20px;
@@ -130,7 +140,7 @@ export default {
       height: 40px;
     }
     span {
-      margin-left: 15px;
+      margin-left: 30px;
     }
   }
 }
@@ -142,6 +152,7 @@ export default {
   }
 }
 .el-main {
+  padding: 0px;
   background-color: #eaedf1;
 }
 .iconfont {
@@ -156,5 +167,18 @@ export default {
   letter-spacing: 0.2em;
   // 鼠标放上去变成小手
   cursor: pointer;
+}
+
+.login_out {
+  background-color: #303030;
+}
+
+.back_main {
+  // display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+  background-size: cover;
 }
 </style>
