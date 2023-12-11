@@ -3,13 +3,12 @@ package com.keeser.web.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 
 @Entity  // 表示这是一个实体类
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "sp_permission_api")  // 指定表名
@@ -22,10 +21,9 @@ public class PermissionApi {
     @Column(name = "id")
     private int id;
 
-    // private int psId;  // 权限id
-
     @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "psId")
+    @JoinColumn(name = "ps_id")
+ //   private int psId;  // 权限id
     private Permission permission;
 
     private String psApiPath;  // 权限路径

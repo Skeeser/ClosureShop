@@ -9,6 +9,11 @@ Vue
 
 ### 登录
 
+### wireShark抓取报文
+过滤命令  
+```
+http and ip.addr == 127.0.0.1 and tcp.port == 8888
+```
 
 <br>
 
@@ -55,6 +60,8 @@ https://blog.csdn.net/qq_50969362/article/details/134100542
 
 ### jpa连表实现
 https://blog.51cto.com/u_15067236/4193000  
+
+
 
 ### todos
 - [ ] 每次发送请求都进行token验证解析  

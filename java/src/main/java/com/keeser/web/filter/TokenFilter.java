@@ -27,12 +27,21 @@ public class TokenFilter extends OncePerRequestFilter {
 
         //获取当前请求的uri
         String uri = request.getRequestURI();
+
+        // 判断当前是什么请求, 如果是OPTIONS放行
+        if(request.getMethod().equals("OPTIONS")){
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         //判断是否是认证请求路径
         //是：直接放行
         if (uri.endsWith("api/login") || uri.endsWith("api/register")) {
             filterChain.doFilter(request, response);
             return;
         }
+
+
 
         //否：获取请求头中携带的token
         String authorization = request.getHeader("Authorization");
@@ -43,10 +52,10 @@ public class TokenFilter extends OncePerRequestFilter {
             return;
         }
 
-        String realToken = authorization.replace("Bearer ", "");
+        // String realToken = authorization.replace("Bearer ", "");
 
         //是：校验jwt有效性
-        if (!jwtUtil.checkToken(realToken)) {
+        if (!jwtUtil.checkToken(authorization)) {
             return;
         }
 

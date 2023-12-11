@@ -1,14 +1,13 @@
 package com.keeser.web.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 
 @Entity  // 表示这是一个实体类
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "sp_permission")  // 指定表名
@@ -18,7 +17,7 @@ public class Permission {
     // 定义主键
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "psId")
+    @Column(name = "ps_id")
     private int psId;
 
     private String psName;  // 权限名称
