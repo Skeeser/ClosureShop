@@ -21,7 +21,7 @@ public class LoginController {
     UserService userService;
 
     @CrossOrigin  // 处理跨域资源共享（CORS）
-    @PostMapping(value = "api/login")  // 方法是用来处理 HTTP POST 请求的
+    @PostMapping(value = "/api/login")  // 方法是用来处理 HTTP POST 请求的
     @ResponseBody  // 表示方法的返回值将直接作为 HTTP 响应的内容返回，而不是寻找视图解析器来解析为视图
     public JSONObject login(@RequestBody User requestUser) {
         // 对 html 标签进行转义，防止 XSS 攻击
