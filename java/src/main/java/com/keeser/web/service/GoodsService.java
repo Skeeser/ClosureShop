@@ -33,7 +33,8 @@ public class GoodsService {
             // 模糊搜索获取数量
             allNum = goodsDAO.countAllByGoodsNameLike("%" + query + "%");
             Sort sort = Sort.by(Sort.Direction.DESC, "goodsId");
-            Pageable pageable = PageRequest.of(pagenum, pagessize, sort);
+            // 要减一保证从零开始
+            Pageable pageable = PageRequest.of(pagenum - 1, pagessize, sort);
             goodList = goodsDAO.findAllByGoodsNameLike("%" + query + "%", pageable);
 
         }catch (Exception e){
@@ -132,8 +133,11 @@ public class GoodsService {
             goods.setGoodsPrice(addJson.getDouble("goods_price"));
             goods.setGoodsNumber(addJson.getInteger("goods_number"));
             goods.setGoodsWeight(addJson.getInteger("goods_weight"));
-            goods.setAddTime(new Date().getTime() / 1000);
+            Long time = new Date().getTime() / 1000;
+            goods.setAddTime(time);
+            goods.setUpdTime(time);
             goods.setGoodsState('0');
+            goods.setIsDel('0');
             goods.setGoodsIntroduce(addJson.getString("goods_introduce"));
             goods = goodsDAO.save(goods);
         }catch (Exception e){
