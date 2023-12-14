@@ -37,7 +37,7 @@ public class MenusService {
         List<Permission> menus = null;
         // 获取菜单
         try {
-            menus = this.permissionDAO.findAllByPermissionApiExists();
+            menus = this.permissionDAO.findAll();
         }catch (Exception e){
             return new ResultMetaJson(ResultCode.STATUS_BAD_REQUEST, "获取菜单列表发生异常").getMetaJson();
         }

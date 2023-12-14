@@ -32,7 +32,7 @@ public class GoodsService {
         try {
             // 模糊搜索获取数量
             allNum = goodsDAO.countAllByGoodsNameLike("%" + query + "%");
-            Sort sort = Sort.by(Sort.Direction.ASC, "goodsId");
+            Sort sort = Sort.by(Sort.Direction.DESC, "goodsId");
             Pageable pageable = PageRequest.of(pagenum, pagessize, sort);
             goodList = goodsDAO.findAllByGoodsNameLike("%" + query + "%", pageable);
 
