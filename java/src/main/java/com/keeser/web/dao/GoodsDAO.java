@@ -1,6 +1,8 @@
 package com.keeser.web.dao;
 
 import com.keeser.web.entity.Goods;
+import jakarta.transaction.TransactionScoped;
+import jakarta.transaction.Transactional;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -28,5 +30,7 @@ public interface GoodsDAO extends JpaRepository<Goods, Integer> {
 
     Goods findByGoodsId(int goodId);
 
+    @Transactional  // 如果发生unchecked exception，就会发生rollback, 不加无法删除操作
     void deleteByGoodsId(int goodId);
+
 }
