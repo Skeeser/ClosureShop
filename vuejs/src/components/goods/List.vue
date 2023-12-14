@@ -57,7 +57,7 @@
               type="primary"
               icon="el-icon-edit"
               size="mini"
-              @click="editById(scope.row.goods_id)"
+              @click="getGoodsById(scope.row.goods_id)"
             ></el-button>
             <el-button
               type="danger"
@@ -98,17 +98,25 @@
         <el-form-item label="商品名称" prop="goods_name">
           <el-input v-model="editGoodsForm.goods_name"></el-input>
         </el-form-item>
-
         <el-form-item label="价格" prop="goods_price">
-          <el-input v-model="editGoodsForm.goods_price"></el-input>
+          <el-input
+            v-model="editGoodsForm.goods_price"
+            type="number"
+          ></el-input>
         </el-form-item>
         <el-form-item label="数量" prop="goods_number">
-          <el-input v-model="editGoodsForm.goods_number"></el-input>
+          <el-input
+            v-model="editGoodsForm.goods_number"
+            type="number"
+          ></el-input>
         </el-form-item>
         <el-form-item label="重量" prop="goods_weight">
-          <el-input v-model="editGoodsForm.goods_weight"></el-input>
+          <el-input
+            v-model="editGoodsForm.goods_weight"
+            type="number"
+          ></el-input>
         </el-form-item>
-        <el-form-item label="介绍" prop="goods_introduce">
+        <!-- <el-form-item label="介绍" prop="goods_introduce">
           <el-input v-model="editGoodsForm.goods_introduce"></el-input>
         </el-form-item>
         <el-form-item label="图片路径" prop="pics">
@@ -116,7 +124,7 @@
         </el-form-item>
         <el-form-item label="商品参数" prop="attrs">
           <el-input v-model="editGoodsForm.attrs" disabled></el-input>
-        </el-form-item>
+        </el-form-item> -->
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="editDialogVisible = false">取 消</el-button>
@@ -205,24 +213,25 @@ export default {
     },
     editGoods() {
       // 提交请求前，表单预验证
-      this.$refs.editUserFormRef.validate(async (valid) => {
+      this.$refs.editGoodsFormRef.validate(async (valid) => {
         // console.log(valid)
         // 表单预校验失败
         if (!valid) return
         const { data: res } = await this.$http.put(
-          'goods/' + this.editUserForm.id,
+          'goods/' + this.editGoodsForm.goods_id,
           {
             goods_name: this.editGoodsForm.goods_name,
-            goods_price: this.editGoodsForm.goods_price,
-            goods_number: this.editGoodsForm.goods_number,
-            goods_weight: this.editGoodsForm.goods_weight,
-            goods_introduce: this.editGoodsForm.goods_introduce,
-            pics: this.editGoodsForm.pics,
-            attrs: this.editGoodsForm.attrs
+            goods_price: Number(this.editGoodsForm.goods_price),
+            goods_number: Number(this.editGoodsForm.goods_number),
+            goods_weight: Number(this.editGoodsForm.goods_weight)
+            // goods_introduce: this.editGoodsForm.goods_introduce,
+            // pics: this.editGoodsForm.pics,
+            // attrs: this.editGoodsForm.attrs
           }
         )
         if (res.meta.status !== 200) {
           this.$message.error('更新商品信息失败！')
+          return
         }
         // 隐藏添加商品对话框
         this.editDialogVisible = false
