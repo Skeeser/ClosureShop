@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -72,7 +73,7 @@ public class GoodsService {
         Goods goods = null;
         try{
             // 获取商品
-            goods = goodsDAO.findGoodsByGoodsId(id);
+            goods = goodsDAO.findByGoodsId(id);
 
         }catch (Exception e){
             return new ResultMetaJson(ResultCode.STATUS_NOT_FOUND, "获取商品发生异常").getMetaJson();
@@ -99,15 +100,28 @@ public class GoodsService {
     }
 
     // 修改商品
-    public JSONObject editGoodsById(int id){
+    public JSONObject editGoodsById(int id, JSONObject editGoods){
+
         Goods goods = null;
-        
 
         try{
-            // goodsDAO.save()
+            // 先取goods对象
+            goods = goodsDAO.findByGoodsId(id);
+            // 修改对象
+            goods.setGoodsName(editGoods.getString("goods_name"));
+            goods.setGoodsPrice(editGoods.getDouble("goods_price"));
+            goods.setGoodsNumber(editGoods.getInteger("goods_number"));
+            goods.setGoodsWeight(editGoods.getInteger("goods_weight"));
+            // 修改时间
+            goods.setUpdTime(new Date().getTime() / 1000);
+            goodsDAO.save(goods);
         }catch (Exception e){
             return new ResultMetaJson(ResultCode.STATUS_BAD_REQUEST, "修改商品发生异常").getMetaJson();
         }
-        return null;
+        JSONObject retJson = getGoodsById(id);
+        JSONObject metaJson = (JSONObject)retJson.get("meta");
+        metaJson.put("msg", "修改商品成功");
+        metaJson.put("status", ResultCode.STATUS_OK);
+        return retJson;
     }
 }

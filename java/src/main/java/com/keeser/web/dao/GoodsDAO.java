@@ -26,6 +26,7 @@ public interface GoodsDAO extends JpaRepository<Goods, Integer> {
     ArrayList<Goods> findAllByGoodsNameLike(String query,
                                               Pageable pageable);
 
-    Goods findGoodsByGoodsId(int goodId);
+    Goods findByGoodsId(int goodId);
+
 
 }

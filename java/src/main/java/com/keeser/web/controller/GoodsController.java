@@ -32,7 +32,7 @@ public class GoodsController {
     @CrossOrigin  // 处理跨域资源共享（CORS）
     @PutMapping(value = "/api/goods/{id}")
     @ResponseBody  // 表示方法的返回值将直接作为 HTTP 响应的内容返回，而不是寻找视图解析器来解析为视图
-    public JSONObject editGoodsById(@PathVariable(name = "id") int id) {
-        return goodsService.editGoodsById(id);
+    public JSONObject editGoodsById(@PathVariable(name = "id") int id, @RequestBody JSONObject editGoods) {
+        return goodsService.editGoodsById(id, editGoods);
     }
 }

@@ -25,15 +25,15 @@ public class Goods {
 
     private String goodsName;
     private double goodsPrice;
-    private int goodsNumber;
-    private int goodsWeight;
-    private int catId;
-    private String goodsIntroduce;
+    private int goodsNumber;  // 数量
+    private int goodsWeight;  // 重量
+    private int catId;  // 类型id
+    private String goodsIntroduce;  // 商品介绍
 //    private String goodsBigLogo;
 //    private String goodsSmallLogo;
-    private int isDel;
-    private int addTime;
-    private int updTime;
+    private Character isDel;
+    private Long addTime;  // 添加的时间
+    private Long updTime;  // 更新的时间
 //    private Timestamp deleteTime;
     private int catOneId;
     private int catTwoId;
@@ -41,6 +41,5 @@ public class Goods {
     private int hotNumber;
     private int isPromote;
     private int goodsState;
-
 
 }
