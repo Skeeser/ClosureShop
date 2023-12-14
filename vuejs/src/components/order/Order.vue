@@ -10,8 +10,17 @@
     <el-card>
       <el-row>
         <el-col :span="6">
-          <el-input placeholder="请输入内容">
-            <el-button slot="append" icon="el-icon-search"></el-button>
+          <el-input
+            placeholder="请输入内容"
+            v-model="queryInfo.query"
+            clearable
+            @clear="getOrderList"
+          >
+            <el-button
+              slot="append"
+              icon="el-icon-search"
+              @click="getOrderList"
+            ></el-button>
           </el-input>
         </el-col>
       </el-row>
@@ -30,8 +39,12 @@
           </template>
         </el-table-column>
         <el-table-column label="是否发货" prop="is_send"></el-table-column>
-        <el-table-column label="下单时间" prop="create_time"></el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="下单时间" prop="create_time">
+          <template slot-scope="scope">{{
+            (scope.row.create_time * 1000) | dataFormat
+          }}</template>
+        </el-table-column>
+        <!-- <el-table-column label="操作">
           <template slot>
             <el-button
               type="primary"
@@ -46,7 +59,7 @@
               @click="showProgressDialog"
             ></el-button>
           </template>
-        </el-table-column>
+        </el-table-column> -->
       </el-table>
       <!-- 分页区域 -->
       <el-pagination
@@ -61,7 +74,7 @@
     </el-card>
 
     <!-- 编辑对话框 -->
-    <el-dialog
+    <!-- <el-dialog
       title="修改地址"
       :visible.sync="addressDialogVisible"
       width="50%"
@@ -90,14 +103,14 @@
           >确 定</el-button
         >
       </span>
-    </el-dialog>
+    </el-dialog> -->
     <!-- 展示物流进度对话框 -->
-    <el-dialog
+    <!-- <el-dialog
       title="查看物流进度"
       :visible.sync="progressDialogVisible"
       width="50%"
     >
-      <!-- 时间线 -->
+     时间线
       <el-timeline>
         <el-timeline-item
           v-for="(activity, index) in progressInfo"
@@ -106,7 +119,7 @@
           >{{ activity.context }}</el-timeline-item
         >
       </el-timeline>
-    </el-dialog>
+    </el-dialog> -->
   </div>
 </template>
 
