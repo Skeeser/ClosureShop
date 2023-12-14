@@ -124,4 +124,25 @@ public class GoodsService {
         metaJson.put("status", ResultCode.STATUS_OK);
         return retJson;
     }
+
+    public JSONObject addGoods(JSONObject addJson){
+        Goods goods = new Goods();
+        try {
+            goods.setGoodsName(addJson.getString("goods_name"));
+            goods.setGoodsPrice(addJson.getDouble("goods_price"));
+            goods.setGoodsNumber(addJson.getInteger("goods_number"));
+            goods.setGoodsWeight(addJson.getInteger("goods_weight"));
+            goods.setAddTime(new Date().getTime() / 1000);
+            goods.setGoodsState('0');
+            goods.setGoodsIntroduce(addJson.getString("goods_introduce"));
+            goods = goodsDAO.save(goods);
+        }catch (Exception e){
+            return new ResultMetaJson(ResultCode.STATUS_BAD_REQUEST , "添加商品发生异常").getMetaJson();
+        }
+        JSONObject retJson = getGoodsById(goods.getGoodsId());
+        JSONObject metaJson = (JSONObject)retJson.get("meta");
+        metaJson.put("msg", "添加商品成功");
+        metaJson.put("status", ResultCode.STATUS_CREATED);
+        return retJson;
+    }
 }

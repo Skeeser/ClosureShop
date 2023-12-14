@@ -35,4 +35,12 @@ public class GoodsController {
     public JSONObject editGoodsById(@PathVariable(name = "id") int id, @RequestBody JSONObject editGoods) {
         return goodsService.editGoodsById(id, editGoods);
     }
+
+    @CrossOrigin  // 处理跨域资源共享（CORS）
+    @PostMapping(value = "/api/goods")
+    @ResponseBody  // 表示方法的返回值将直接作为 HTTP 响应的内容返回，而不是寻找视图解析器来解析为视图
+    public JSONObject addGoodsById(@RequestBody JSONObject addGoods) {
+        return goodsService.addGoods(addGoods);
+    }
+
 }
