@@ -15,10 +15,24 @@ public class GoodsController {
     GoodsService goodsService;
 
     @CrossOrigin  // 处理跨域资源共享（CORS）
-    @GetMapping(value = "/api/goods")  // 方法是用来处理 HTTP POST 请求的
+    @GetMapping(value = "/api/goods")
     @ResponseBody  // 表示方法的返回值将直接作为 HTTP 响应的内容返回，而不是寻找视图解析器来解析为视图
     public JSONObject getGoodsList(@RequestParam String query, @RequestParam int pagenum, @RequestParam int pagesize) {
 
         return goodsService.getGoodsList(query, pagenum, pagesize);
+    }
+
+    @CrossOrigin  // 处理跨域资源共享（CORS）
+    @GetMapping(value = "/api/goods/{id}")
+    @ResponseBody  // 表示方法的返回值将直接作为 HTTP 响应的内容返回，而不是寻找视图解析器来解析为视图
+    public JSONObject getGoodsList(@PathVariable(name = "id") int id) {
+        return goodsService.getGoodsById(id);
+    }
+
+    @CrossOrigin  // 处理跨域资源共享（CORS）
+    @PutMapping(value = "/api/goods/{id}")
+    @ResponseBody  // 表示方法的返回值将直接作为 HTTP 响应的内容返回，而不是寻找视图解析器来解析为视图
+    public JSONObject editGoodsById(@PathVariable(name = "id") int id) {
+        return goodsService.editGoodsById(id);
     }
 }

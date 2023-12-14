@@ -1157,7 +1157,8 @@ type=tree
                 "upd_time": 1512954923,
                 "hot_mumber": 0,
                 "is_promote": false
-            }
+            },
+            ...
         ]
     },
     "meta": {
@@ -1302,13 +1303,11 @@ type=tree
 
 | 参数名       | 参数说明                   | 备注                                                         |
 | ------------ | -------------------------- | ------------------------------------------------------------ |
-| total        | 总共商品条数               |                                                              |
-| pagenum      | 当前商品页数               |                                                              |
 | goods_id     | 商品 ID                    |                                                              |
 | goods_name   | 商品名称                   |                                                              |
-| goods_price  | 价格                       |                                                              |
-| goods_number | 数量                       |                                                              |
-| goods_weight | 重量                       | 不能为空                                                     |
+| goods_price  | 价格                       |                                                           |
+| goods_number | 数量                       |                                                           |
+| goods_weight | 重量                       | 不能为空                                                   |
 | goods_state  | 商品状态                   | 商品状态 0: 未通过 1: 审核中 2: 已审核                       |
 | add_time     | 添加时间                   |                                                              |
 | upd_time     | 更新时间                   |                                                              |
@@ -1316,6 +1315,7 @@ type=tree
 | is_promote   | 是否是热销品               |                                                              |
 | pics         | 上传的图片临时路径（对象） | pics_id:图片 ID,goods_id:商品 ID,pics_big:大图,pics_mid:中图,pics_sma:小图 |
 | attrs        | 商品的参数（数组）         | goods_id:商品 ID,attr_value:当前商品的参数值,add_price:浮动价格,attr_vals:预定义的参数值,attr_sel:手动输入，还是单选, |
+
 
 - 响应数据
 
@@ -1381,7 +1381,7 @@ type=tree
 - 请求参数
 
 | 参数名          | 参数说明                   | 备注                  |
-| --------------- | -------------------------- | --------------------- |
+| --------------- | -------------------------- | --------------------|
 | id              | 商品 ID                    | 不能为空`携带在url中` |
 | goods_name      | 商品名称                   | 不能为空              |
 | goods_price     | 价格                       | 不能为空              |

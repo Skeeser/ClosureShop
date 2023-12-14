@@ -58,8 +58,13 @@ public class MenusService {
 
         // 第一次遍历菜单
         for(Permission permission: menus){
+            int pid = permission.getPsId();
+            // 过滤暂时未实现的功能
+            if(pid == 115 || pid == 121)
+                continue;
+
             // 将对应的对象放进哈希表中
-            permissionHashMap.put(permission.getPsId(), permission);
+            permissionHashMap.put(pid, permission);
         }
 
         // 第二次遍历菜单

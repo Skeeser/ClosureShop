@@ -14,4 +14,5 @@ public interface UserDAO extends JpaRepository<User, Integer>{
 
     User getByMgNameAndMgPwd(String username,String password);
 
+
 }
