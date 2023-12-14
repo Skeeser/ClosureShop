@@ -126,6 +126,7 @@ public class GoodsService {
         return retJson;
     }
 
+    // 添加商品
     public JSONObject addGoods(JSONObject addJson){
         Goods goods = new Goods();
         try {
@@ -148,5 +149,16 @@ public class GoodsService {
         metaJson.put("msg", "添加商品成功");
         metaJson.put("status", ResultCode.STATUS_CREATED);
         return retJson;
+    }
+
+    // 删除商品
+    public JSONObject deleteGoodsById(int goodId){
+        try{
+            goodsDAO.deleteByGoodsId(goodId);
+        }catch (Exception e) {
+            return new ResultMetaJson(ResultCode.STATUS_BAD_REQUEST , "删除商品发生异常").getMetaJson();
+        }
+
+        return new ResultMetaJson(ResultCode.STATUS_DELETED , "删除商品成功").getMetaJson();
     }
 }

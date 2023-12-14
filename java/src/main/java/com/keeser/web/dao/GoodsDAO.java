@@ -28,5 +28,5 @@ public interface GoodsDAO extends JpaRepository<Goods, Integer> {
 
     Goods findByGoodsId(int goodId);
 
-
+    void deleteByGoodsId(int goodId);
 }
