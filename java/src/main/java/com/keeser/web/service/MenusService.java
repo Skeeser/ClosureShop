@@ -60,7 +60,7 @@ public class MenusService {
         for(Permission permission: menus){
             int pid = permission.getPsId();
             // 过滤暂时未实现的功能
-            if(pid == 115 || pid == 121)
+            if(pid == 115 || pid == 121 || pid == 103 || pid == 125)
                 continue;
 
             // 将对应的对象放进哈希表中
