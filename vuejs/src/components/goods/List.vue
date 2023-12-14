@@ -192,7 +192,7 @@ export default {
         return this.$message.info('已取消删除！')
       }
       const { data: res } = await this.$http.delete('goods/' + id)
-      if (res.meta.status !== 200) {
+      if (res.meta.status !== 204) {
         return this.$message.error('删除商品失败！')
       }
       this.$message.success('删除商品成功！')
