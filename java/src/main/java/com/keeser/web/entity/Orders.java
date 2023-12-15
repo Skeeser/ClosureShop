@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -24,30 +25,35 @@ public class Orders {
     @Column(name = "order_id")
     private int orderId;
 
-    private int userId;
-    private String orderNumber;
-    private double orderPrice;
-    private char orderPay;
-    private char isSend;
-    private String tradeNo;
-    private String orderFapiaoTitle;
-    private String orderFapiaoCompany;
-    private String orderFapiaoContent;
-    private String consigneeAddr;
-    private char payStatus;
-    private Long createTime;
-    private Long updateTime;
+    private int userId;  // 唯一要设置的变量
+    private String orderNumber;  // 1
+    private double orderPrice;  // 1
+    private char orderPay;  // 1
+    private char isSend;  // 1
+    private String tradeNo;  // 1
+    private String orderFapiaoTitle;  // 1
+    private String orderFapiaoCompany;  // 1
+    private String orderFapiaoContent;  // 1
+    private String consigneeAddr;  // 1
+    private char payStatus;  // 1
+    private Long createTime;  // 1
+    private Long updateTime;  // 1
+    // 是否结束订单
+    private char isCompleteOrder;
 
-    @OneToOne(mappedBy = "orders")
-    private OrdersGoods ordersGoods;
+
+    @OneToMany(mappedBy = "orders")
+    private List<OrdersGoods> ordersGoodsList;
 
 
     public Orders(){
         orderNumber = generateOrderNumber();
+        orderPrice = 0.0;
         orderPay = '0';  // 默认未支付
         isSend = '否';
         orderFapiaoTitle = "个人";
         payStatus = '0';
+        isCompleteOrder = '否';
         createTime = new Date().getTime() / 1000;
         updateTime = new Date().getTime() / 1000;
     }

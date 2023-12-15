@@ -16,4 +16,7 @@ public interface OrdersDAO extends JpaRepository<Orders, Integer> {
     int countAllByOrderNumberLike(String query);
 
     List<Orders> findAllByOrderNumberLike(String query, Pageable pageable);
+
+    Orders findByOrderId(int order_id);
+    Orders findByIsCompleteOrderEquals(char ch);
 }

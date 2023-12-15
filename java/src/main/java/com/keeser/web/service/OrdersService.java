@@ -7,10 +7,14 @@ import com.keeser.web.common.ResultMetaJson;
 import com.keeser.web.dao.OrdersDAO;
 import com.keeser.web.entity.Goods;
 import com.keeser.web.entity.Orders;
+import com.keeser.web.entity.OrdersGoods;
+import com.keeser.web.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -70,16 +74,54 @@ public class OrdersService {
 
     }
 
-    // 添加订单
-    public JSONObject  addOrders(JSONObject addOdersJson){
+    // 插入空的订单并返回订单号
+    private  int getNewOders(int user_id){
+        try{
+            Orders orders = new Orders();
+            orders.setUserId(user_id);
+            ordersDAO.save(orders);
+            return orders.getOrderId();
+        }catch (Exception e){
+            return 0;
+        }
+    }
 
-        Orders orders = new Orders();
+    // 添加购物车
+    public JSONObject  addOrders(JSONObject addOdersGoodsJson){
+
+        Orders orders = null;
 
         try{
-            orders.getOrdersGoods().setGoodsId(addOdersJson.getInteger("goods_id"));
+            // 获取当前用户信息
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            User user = (User)authentication.getPrincipal();
+            int user_id = user.getId();
+
+            // 先找有没有没付款的订单
+            orders = ordersDAO.findByIsCompleteOrderEquals('否');
+            if(orders == null){
+                // 如果没有没付款的, 即购物车为空, 新建
+                int orderId = getNewOders(user_id);
+                orders = ordersDAO.findByOrderId(orderId);
+            }
+
+            List<OrdersGoods> ordersGoodsList = orders.getOrdersGoodsList();
+            // 计算购买的商品价格
+            Double goods_price  = addOdersGoodsJson.getDouble("goods_price");
+            int goods_number = addOdersGoodsJson.getInteger("buy_number");
+            OrdersGoods tempOrderGoods = new OrdersGoods();
+            tempOrderGoods.setGoodsId(addOdersGoodsJson.getInteger("goods_id"));
+            tempOrderGoods.setGoodsPrice(goods_price);
+            tempOrderGoods.setGoodsNumber(goods_number);
+            tempOrderGoods.setGoodsTotalPrice(goods_price * goods_number);
+            ordersGoodsList.add(tempOrderGoods);
+
+            ordersDAO.save(orders);
         }catch (Exception e){
             return new ResultMetaJson(ResultCode.STATUS_BAD_REQUEST, "添加订单发生异常").getMetaJson();
         }
+
+        return null;
     }
 
 }

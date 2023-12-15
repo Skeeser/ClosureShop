@@ -22,7 +22,9 @@ public class OrdersGoods {
     @Column(name = "id")
     private int id;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+
+    // 应该做成多对一的, 嫌麻烦就不做了
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "order_id")
     // private int orderId;
     Orders orders;
@@ -30,7 +32,7 @@ public class OrdersGoods {
     private int goodsId;
     private double goodsPrice;
     private int goodsNumber;
-    private int goodsTotalPrice;
+    private double goodsTotalPrice;
 
 
 
