@@ -42,4 +42,5 @@ public class Goods {
     private int isPromote;
     private int goodsState;
 
+
 }

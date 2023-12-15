@@ -69,4 +69,17 @@ public class OrdersService {
         return retJson;
 
     }
+
+    // 添加订单
+    public JSONObject  addOrders(JSONObject addOdersJson){
+
+        Orders orders = new Orders();
+
+        try{
+            orders.getOrdersGoods().setGoodsId(addOdersJson.getInteger("goods_id"));
+        }catch (Exception e){
+            return new ResultMetaJson(ResultCode.STATUS_BAD_REQUEST, "添加订单发生异常").getMetaJson();
+        }
+    }
+
 }
