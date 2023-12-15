@@ -43,14 +43,17 @@
           prop="goods_number"
           width="70px"
         ></el-table-column>
-        <el-table-column label="购买数量" width="140px"
-          ><el-input-number
-            prop="buy_number"
-            :min="1"
-            :max="10"
-          ></el-input-number>
+        <el-table-column label="购买数量" width="160px" prop="buy_number">
+          <template slot-scope="scope">
+            <el-input-number
+              v-model="scope.row.buy_number"
+              :min="1"
+              :max="scope.row.goods_number"
+              size="mini"
+            ></el-input-number>
+          </template>
         </el-table-column>
-        <el-table-column label="操作" width="200px">
+        <el-table-column label="操作" width="180px">
           <template slot-scope="scope">
             <el-button
               type="warning"
@@ -110,7 +113,12 @@ export default {
         return this.$message.error('获取商品列表失败！')
       }
       this.goodsList = res.data.goods
-      //   console.log(this.goodsList)
+      // 添加默认的购买数为一
+      this.goodsList.forEach((list) => {
+        list.buy_number = 2
+      })
+
+      console.log(this.goodsList)
       this.total = res.data.total
     },
     handleSizeChange(newSize) {
