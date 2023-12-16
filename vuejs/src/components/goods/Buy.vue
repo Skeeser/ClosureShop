@@ -43,13 +43,15 @@
           prop="goods_number"
           width="70px"
         ></el-table-column>
-        <el-table-column label="购买数量" width="160px" prop="buy_number">
+        <el-table-column label="购买数量" width="160px">
           <template slot-scope="scope">
             <el-input-number
-              v-model="scope.row.buy_number"
+              v-model="buyNumberForm[scope.row.goods_id]"
               :min="1"
               :max="scope.row.goods_number"
               size="mini"
+              default-value="1"
+              @change="handleInputChange(scope.row)"
             ></el-input-number>
           </template>
         </el-table-column>
@@ -90,6 +92,8 @@ export default {
       },
       // 商品列表
       goodsList: [],
+      // 购买数量
+      buyNumberForm: {},
       // 商品总数
       total: 0,
       editGoodsForm: {},
@@ -114,11 +118,18 @@ export default {
       }
       this.goodsList = res.data.goods
       // 添加默认的购买数为一
+      // console.log(this.buyNumberForm)
+      // 清空buy number的form
+      this.buyNumberForm = {}
+      // 初始化buynumber
       this.goodsList.forEach((list) => {
-        list.buy_number = 2
+        // $set 方法会确保 buyNumberForm 对象中的 list.goods_id 属性是响应式的。这对于Vue.js的数据绑定非常重要，
+        // 因为直接添加的属性可能不会触发视图的更新，而 $set 方法可以解决这个问题。
+        // this.buyNumberForm.[list.goods_id] = 1  不对
+        this.$set(this.buyNumberForm, list.goods_id, 1)
       })
+      // console.log(this.buyNumberForm)
 
-      console.log(this.goodsList)
       this.total = res.data.total
     },
     handleSizeChange(newSize) {
@@ -129,10 +140,17 @@ export default {
       this.queryInfo.pagenum = newSize
       this.getGoodsList()
     },
+    handleInputChange(scoperow) {
+      // console.log(this.buyNumberForm)
+      // console.log(scoperow)
+    },
     addOrderFormByScopeRow(scoperow) {
       this.addOrderForm.goods_id = scoperow.goods_id
-      this.addOrderForm.buy_number = scoperow.buy_number
+      this.addOrderForm.buy_number = this.buyNumberForm[scoperow.goods_id]
+      // this.addOrderForm.buy_number = scoperow.buy_number
       this.addOrderForm.goods_price = scoperow.goods_price
+
+      console.log(this.addOrderForm)
 
       // 添加购物车
       const { data: res } = this.$http.post('orders/goods', this.addOrderForm)
