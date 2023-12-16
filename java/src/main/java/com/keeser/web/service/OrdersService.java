@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.keeser.web.common.ResultCode;
 import com.keeser.web.common.ResultMetaJson;
 import com.keeser.web.dao.OrdersDAO;
+import com.keeser.web.dao.OrdersGoodsDAO;
 import com.keeser.web.entity.Goods;
 import com.keeser.web.entity.Orders;
 import com.keeser.web.entity.OrdersGoods;
@@ -24,6 +25,9 @@ import java.util.List;
 public class OrdersService {
     @Autowired
     OrdersDAO ordersDAO;
+
+    @Autowired
+    OrdersGoodsDAO ordersGoodsDAO;
 
     // 获取订单列表
     public JSONObject getOrdersList(String query,  int pagenum, int pagessize){
@@ -98,10 +102,13 @@ public class OrdersService {
             int user_id = user.getId();
 
             // 先找有没有没付款的订单
-            orders = ordersDAO.findByIsCompleteOrderEquals('否');
+            orders = ordersDAO.findByUserIdAndIsCompleteOrder(user_id, '否');
             if(orders == null){
                 // 如果没有没付款的, 即购物车为空, 新建
                 int orderId = getNewOders(user_id);
+                if(orderId == 0) {
+                    throw new Exception("创建新订单失败");
+                }
                 orders = ordersDAO.findByOrderId(orderId);
             }
 
@@ -113,15 +120,27 @@ public class OrdersService {
             tempOrderGoods.setGoodsId(addOdersGoodsJson.getInteger("goods_id"));
             tempOrderGoods.setGoodsPrice(goods_price);
             tempOrderGoods.setGoodsNumber(goods_number);
-            tempOrderGoods.setGoodsTotalPrice(goods_price * goods_number);
+            double allPrice = goods_price * goods_number;
+            tempOrderGoods.setGoodsTotalPrice(allPrice);
+            // 增加到订单的价格里
+            double orderPrice = orders.getOrderPrice();
+            orderPrice += allPrice;
+            // 最后一定要设置级联的表为这个, 要不然会保存不成功
+            tempOrderGoods.setOrders(orders);
+
             ordersGoodsList.add(tempOrderGoods);
 
-            ordersDAO.save(orders);
+            // 保存ordersGoods, 而不是oders
+            ordersGoodsDAO.save(tempOrderGoods);
         }catch (Exception e){
-            return new ResultMetaJson(ResultCode.STATUS_BAD_REQUEST, "添加订单发生异常").getMetaJson();
+            return new ResultMetaJson(ResultCode.STATUS_BAD_REQUEST, "添加购物车发生异常").getMetaJson();
         }
 
-        return null;
+        JSONObject retJson = new ResultMetaJson(ResultCode.STATUS_OK, "添加购物车成功").getMetaJson();
+        JSONObject dataJson = new JSONObject();
+        dataJson.put("orders_id", orders.getOrderId());
+        retJson.put("data", dataJson);
+        return retJson;
     }
 
 }

@@ -24,7 +24,6 @@ public class OrdersController {
     @PostMapping(value = "/api/orders/goods")
     @ResponseBody  // 表示方法的返回值将直接作为 HTTP 响应的内容返回，而不是寻找视图解析器来解析为视图
     public JSONObject addOrders(@RequestBody JSONObject addOdersJson) {
-
         return ordersService.addOrders(addOdersJson);
     }
 

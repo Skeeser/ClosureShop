@@ -21,12 +21,10 @@ public class OrdersGoods {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
+//    private int order_id;
 
-
-    // 应该做成多对一的, 嫌麻烦就不做了
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "order_id")
-    // private int orderId;
     Orders orders;
 
     private int goodsId;

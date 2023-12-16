@@ -42,7 +42,7 @@ public class Orders {
     private char isCompleteOrder;
 
 
-    @OneToMany(mappedBy = "orders")
+    @OneToMany(mappedBy = "orders", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<OrdersGoods> ordersGoodsList;
 
 
@@ -52,6 +52,10 @@ public class Orders {
         orderPay = '0';  // 默认未支付
         isSend = '否';
         orderFapiaoTitle = "个人";
+        orderFapiaoCompany = "";
+        orderFapiaoContent = "";
+        consigneeAddr = "";
+        tradeNo = "";
         payStatus = '0';
         isCompleteOrder = '否';
         createTime = new Date().getTime() / 1000;
@@ -59,17 +63,10 @@ public class Orders {
     }
 
     private String generateOrderNumber(){
-        // 获取当前时间戳
-        long timestamp = System.currentTimeMillis();
-
-        // 生成随机数作为一部分订单号
-        int random = (int) (Math.random() * 10000);
 
         // 使用UUID作为另一部分订单号
-        String uniqueID = UUID.randomUUID().toString();
+        String uniqueID = UUID.randomUUID().toString().replace("-", "");;
 
-        // 组合时间戳、随机数和UUID来生成订单号
-        String orderNumber = "ORDER-" + timestamp + "-" + random + "-" + uniqueID;
-        return orderNumber;
+        return uniqueID;
     }
 }
