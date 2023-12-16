@@ -144,7 +144,7 @@ export default {
       // console.log(this.buyNumberForm)
       // console.log(scoperow)
     },
-    addOrderFormByScopeRow(scoperow) {
+    async addOrderFormByScopeRow(scoperow) {
       this.addOrderForm.goods_id = scoperow.goods_id
       this.addOrderForm.buy_number = this.buyNumberForm[scoperow.goods_id]
       // this.addOrderForm.buy_number = scoperow.buy_number
@@ -153,7 +153,12 @@ export default {
       console.log(this.addOrderForm)
 
       // 添加购物车
-      const { data: res } = this.$http.post('orders/goods', this.addOrderForm)
+      const { data: res } = await this.$http.post(
+        'orders/goods',
+        this.addOrderForm
+      )
+
+      console.log(res)
       if (res.meta.status !== 200) {
         return this.$message.error('加入购物车失败！')
       }
