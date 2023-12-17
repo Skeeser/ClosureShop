@@ -18,5 +18,4 @@ public interface PermissionDAO extends JpaRepository<Permission, Integer>{
 //                "WHERE main.ps_id is not null;")
     List<Permission> findAll();
 
-
 }

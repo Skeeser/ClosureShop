@@ -21,10 +21,11 @@ public class PermissionApi {
     @Column(name = "id")
     private int id;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "ps_id")
- //   private int psId;  // 权限id
-    private Permission permission;
+    // 不要用默认的懒加载, 不然会很慢
+//    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+//    @JoinColumn(name = "ps_id")
+    private int psId;  // 权限id
+//    private Permission permission;
 
     private String psApiPath;  // 权限路径
 

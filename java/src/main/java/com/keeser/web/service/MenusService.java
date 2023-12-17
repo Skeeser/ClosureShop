@@ -7,6 +7,7 @@ import com.keeser.web.common.ResultMetaJson;
 import com.keeser.web.dao.PermissionApiDAO;
 import com.keeser.web.dao.PermissionDAO;
 import com.keeser.web.entity.Permission;
+import com.keeser.web.entity.PermissionApi;
 import com.keeser.web.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,6 +30,7 @@ import java.util.List;
 public class MenusService {
     @Autowired
     PermissionDAO permissionDAO;
+
     @Autowired
     RolesService rolesService;
 
@@ -37,7 +39,9 @@ public class MenusService {
         List<Permission> menus = null;
         // 获取菜单
         try {
+
             menus = this.permissionDAO.findAll();
+
         }catch (Exception e){
             return new ResultMetaJson(ResultCode.STATUS_BAD_REQUEST, "获取菜单列表发生异常").getMetaJson();
         }
@@ -76,7 +80,7 @@ public class MenusService {
             JSONObject temp = new JSONObject();
             temp.put("id", permission.getPsId());
             temp.put("authName", permission.getPsName());
-            temp.put("path", permission.getPermissionApi().getPsApiPath());
+            temp.put("path", permission.getPsApiPath());
             int psPid = permission.getPsPid();
             if(permission.getPsLevel() == 0){  // 0级目录
                 int pid = permission.getPsId();

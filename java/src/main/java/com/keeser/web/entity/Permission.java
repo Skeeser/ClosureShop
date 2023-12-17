@@ -23,8 +23,8 @@ public class Permission {
     private String psName;  // 权限名称
     private int psPid;  // 父级id
     private int psLevel;  // 权限等级
-
-    @OneToOne(mappedBy = "permission")
-    private PermissionApi permissionApi;
+    private String psApiPath;  // 权限路径
+//    @OneToOne(mappedBy = "permission",fetch = FetchType.EAGER)
+//    private PermissionApi permissionApi;
 
 }
