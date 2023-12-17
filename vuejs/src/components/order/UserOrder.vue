@@ -30,6 +30,29 @@
         <el-table-column type="index" label="#"></el-table-column>
         <el-table-column label="订单编号" prop="order_number"></el-table-column>
         <el-table-column label="订单价格" prop="order_price"></el-table-column>
+        <el-table-column label="支付方式">
+          <template slot-scope="scope">
+            <el-tag
+              type="primary"
+              size="mini"
+              v-if="scope.row.order_pay === '1'"
+              >支付宝</el-tag
+            >
+            <el-tag
+              type="success"
+              size="mini"
+              v-if="scope.row.order_pay === '2'"
+              >微信</el-tag
+            >
+            <el-tag
+              type="warning"
+              size="mini"
+              v-if="scope.row.order_pay === '3'"
+              >银行卡</el-tag
+            >
+            <el-tag type="danger" size="mini" v-else>未指定支付方式</el-tag>
+          </template>
+        </el-table-column>
         <el-table-column label="是否付款">
           <template slot-scope="scope">
             <el-tag type="danger" size="mini" v-if="scope.row.pay_status"
@@ -45,7 +68,7 @@
           }}</template>
         </el-table-column>
         <el-table-column label="操作">
-          <template slot>
+          <template slot-scope="scope">
             <el-button
               type="primary"
               size="mini"
