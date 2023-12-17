@@ -86,7 +86,7 @@ public class OrdersService {
     }
 
     // 获取用户订单列表
-    public JSONObject getUserOrdersList(){
+    public JSONObject getUserOrdersList(String query){
         List<Orders> ordersList = null;
 
         int allNum = 0;
@@ -98,9 +98,9 @@ public class OrdersService {
 
 
             // 模糊搜索获取数量
-            allNum = ordersDAO.countAllByIsCompleteOrderAndUserId('是', user_id);
+            allNum = ordersDAO.countAllByUserIdAndIsCompleteOrderAndOrderNumberLike(user_id, '是', "%" + query + "%");
             Sort sort = Sort.by(Sort.Direction.DESC, "orderNumber");
-            ordersList = ordersDAO.findAllByIsCompleteOrderAndUserId('是', user_id);
+            ordersList = ordersDAO.findAllByUserIdAndIsCompleteOrderAndOrderNumberLike(user_id, '是', "%" + query + "%");
 
         }catch (Exception e){
             return new ResultMetaJson(ResultCode.STATUS_BAD_REQUEST, "获取用户订单列表发生异常").getMetaJson();
@@ -109,7 +109,7 @@ public class OrdersService {
         JSONObject retJson = new ResultMetaJson(ResultCode.STATUS_OK, "获取用户订单列表成功").getMetaJson();
         JSONObject dataJson = new JSONObject();
         dataJson.put("total", allNum);
-   
+
         ArrayList<JSONObject> ordersJsonList = new ArrayList<JSONObject>();
         // 生成商品列表
         for(Orders order : ordersList){
