@@ -35,5 +35,7 @@ public interface GoodsDAO extends JpaRepository<Goods, Integer> {
 
     ArrayList<Goods> findTop15ByOrderByHotNumberDesc();
 
+    ArrayList<Goods> findAll();
+
 
 }

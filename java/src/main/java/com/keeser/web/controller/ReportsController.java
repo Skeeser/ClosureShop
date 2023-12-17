@@ -19,7 +19,7 @@ public class ReportsController {
     @GetMapping(value = "/api/reports")
     @ResponseBody  // 表示方法的返回值将直接作为 HTTP 响应的内容返回，而不是寻找视图解析器来解析为视图
     public JSONObject getGoodsList() {
-
+        // reportsService.randomHotNumber();
         return reportsService.getHotNumberReport();
     }
 }
