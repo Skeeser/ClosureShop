@@ -265,7 +265,31 @@ public class OrdersService {
 
     // 删除某个订单的商品
     public JSONObject deleteOrderById(int id){
+        Orders orders = null;
         try{
+            // 要先把对应的ordergoods删除
+            orders = ordersDAO.findByOrderId(id);
+            if(orders == null){
+                throw new Exception("找不到订单");
+            }
+
+            List<OrdersGoods> ordersGoodsList = orders.getOrdersGoodsList();
+
+            if(ordersGoodsList != null){
+                ArrayList<Integer> orderGoodsIds = new ArrayList<Integer>();
+                for(OrdersGoods ordersGoods : ordersGoodsList){
+                    // 先把实体类对象给删除了
+                    orderGoodsIds.add(ordersGoods.getId());
+                }
+
+                ordersGoodsList.clear();
+                // 逐个删除
+                for(int i: orderGoodsIds){
+                    ordersGoodsDAO.deleteById(i);
+                }
+
+            }
+            // 删除总的
             ordersDAO.deleteById(id);
         }catch (Exception e) {
             return new ResultMetaJson(ResultCode.STATUS_BAD_REQUEST , "删除订单发生异常").getMetaJson();
