@@ -24,7 +24,9 @@
           </el-input>
         </el-col>
         <el-col :span="4">
-          <el-button type="primary" @click="createOrder">生成订单</el-button>
+          <el-button type="primary" @click="createOrderDialogVisible = true"
+            >生成订单</el-button
+          >
         </el-col>
       </el-row>
 
@@ -35,36 +37,22 @@
         <el-table-column label="商品单价" prop="goods_price"></el-table-column>
         <el-table-column label="购买数量" prop="buy_number"></el-table-column>
         <el-table-column label="总价格" prop="all_price"></el-table-column>
-        <!-- <el-table-column label="是否付款">
+        <el-table-column label="操作" width="130px">
           <template slot-scope="scope">
-            <el-tag type="danger" size="mini" v-if="scope.row.pay_status"
-              >未付款</el-tag
-            >
-            <el-tag type="success" size="mini" v-else>已付款</el-tag>
-          </template>
-        </el-table-column> -->
-        <!-- <el-table-column label="是否发货" prop="is_send"></el-table-column>
-        <el-table-column label="下单时间" prop="create_time">
-          <template slot-scope="scope">{{
-            (scope.row.create_time * 1000) | dataFormat
-          }}</template>
-        </el-table-column> -->
-        <!-- <el-table-column label="操作">
-          <template slot>
-            <el-button
+            <!-- <el-button
               type="primary"
-              size="mini"
               icon="el-icon-edit"
-              @click="showEditDialog"
-            ></el-button>
-            <el-button
-              type="success"
               size="mini"
-              icon="el-icon-location"
-              @click="showProgressDialog"
+              @click="editGoodsById(scope.row.buycar_id)"
+            ></el-button> -->
+            <el-button
+              type="danger"
+              icon="el-icon-delete"
+              size="mini"
+              @click="removeGoodsById(scope.row.buycar_id)"
             ></el-button>
           </template>
-        </el-table-column> -->
+        </el-table-column>
       </el-table>
       <!-- 分页区域 -->
       <!-- <el-pagination
@@ -78,53 +66,52 @@
       ></el-pagination> -->
     </el-card>
 
-    <!-- 编辑对话框 -->
-    <!-- <el-dialog
-      title="修改地址"
-      :visible.sync="addressDialogVisible"
+    <!-- 添加订单的对话框 -->
+    <el-dialog
+      title="添加订单"
+      :visible.sync="createOrderDialogVisible"
       width="50%"
-      @close="addressDialogClosed"
+      @open="createOrderDialogOpened"
+      @close="createOrderDialogClosed"
     >
+      <!-- 内容主体 -->
       <el-form
-        :model="addressForm"
-        :rules="addressFormRules"
-        ref="addressFormRef"
+        :model="createOrdersForm"
+        ref="createOrdersFormRef"
+        :rules="addOrdersFormRules"
         label-width="100px"
       >
-        <el-form-item label="省市区/县" prop="address1">
-          <el-cascader
-            v-model="addressForm.address1"
-            :options="cityData"
-            :props="{ expandTrigger: 'hover' }"
-          ></el-cascader>
+        <el-form-item label="支付金额" prop="username">
+          <el-input
+            v-model="createOrdersForm.order_price"
+            type="text"
+            style="width: 200px"
+            disabled
+          ></el-input>
         </el-form-item>
-        <el-form-item label="详细地址" prop="address2">
-          <el-input v-model="addressForm.address2"></el-input>
+        <el-form-item label="支付方式" prop="password">
+          <el-select v-model="createOrdersForm.order_pay" placeholder="请选择">
+            <el-option
+              v-for="item in pay_options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
         </el-form-item>
+        <!-- <el-form-item label="学号" prop="email">
+          <el-input v-model="createOrdersForm.email"></el-input>
+        </el-form-item>
+        <el-form-item label="角色" prop="mobile">
+          <el-input v-model="createOrdersForm.mobile"></el-input>
+        </el-form-item> -->
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="addressDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible = false"
-          >确 定</el-button
-        >
+        <el-button @click="createOrderDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="createOrder">确 定</el-button>
       </span>
-    </el-dialog> -->
-    <!-- 展示物流进度对话框 -->
-    <!-- <el-dialog
-      title="查看物流进度"
-      :visible.sync="progressDialogVisible"
-      width="50%"
-    >
-     时间线
-      <el-timeline>
-        <el-timeline-item
-          v-for="(activity, index) in progressInfo"
-          :key="index"
-          :timestamp="activity.time"
-          >{{ activity.context }}</el-timeline-item
-        >
-      </el-timeline>
-    </el-dialog> -->
+    </el-dialog>
   </div>
 </template>
 
@@ -141,27 +128,37 @@ export default {
         pagesize: 10
       },
       total: 0,
+      // 是否显示生成订单的窗口
+      createOrderDialogVisible: false,
       // 订单列表
       orderList: [],
+      createOrdersForm: {
+        order_price: 0,
+        order_pay: ''
+      },
       // 修改地址对话框
       addressDialogVisible: false,
+      // 验证规则
+      addOrdersFormRules: {},
       addressForm: {
         address1: [],
         address2: ''
       },
-      addressFormRules: {
-        address1: [
-          { required: true, message: '请选择省市区县', trigger: 'blur' }
-        ],
-        address2: [
-          { required: true, message: '请输入详细地址', trigger: 'blur' }
-        ]
-      },
       cityData,
-      // 物流进度对话框
-      progressDialogVisible: false,
-      // 物流进度
-      progressInfo: []
+      pay_options: [
+        {
+          value: '1',
+          label: '支付宝'
+        },
+        {
+          value: '2',
+          label: '微信'
+        },
+        {
+          value: '3',
+          label: '银行卡'
+        }
+      ]
     }
   },
   created() {
@@ -194,6 +191,7 @@ export default {
     addressDialogClosed() {
       this.$refs.addressFormRef.resetFields()
     },
+
     async showProgressDialog() {
       // 供测试的物流单号：1106975712662
       const { data: res } = await this.$http.get('/kuaidi/1106975712662')
@@ -203,7 +201,41 @@ export default {
       this.progressInfo = res.data
       this.progressDialogVisible = true
     },
-    createOrder() {}
+
+    createOrderDialogOpened() {
+      // this.getOrderList()
+      this.createOrdersForm.order_price = 0
+      // 结算金额
+      this.orderList.forEach((item) => {
+        this.createOrdersForm.order_price += item.all_price
+      })
+    },
+    // 结算购物车
+    createOrderDialogClosed() {
+      this.$refs.createOrdersFormRef.resetFields()
+    },
+    createOrder() {},
+    // 删除购物车中的某个商品
+    async removeGoodsById(id) {
+      const confirmResult = await this.$confirm(
+        '此操作将永久删除该商品, 是否继续?',
+        '提示',
+        {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }
+      ).catch((err) => err)
+      if (confirmResult !== 'confirm') {
+        return this.$message.info('已取消删除！')
+      }
+      const { data: res } = await this.$http.delete('orders/goods/' + id)
+      if (res.meta.status !== 204) {
+        return this.$message.error('删除购物车商品失败！')
+      }
+      this.$message.success('删除购物车商品成功！')
+      this.getOrderList()
+    }
   }
 }
 </script>
