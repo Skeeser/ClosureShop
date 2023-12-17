@@ -7,7 +7,7 @@
 <br>
 
 <div>
-    <img alt="java" src="https://img.shields.io/badge/java-11-%2300599C">
+    <img alt="java" src="https://img.shields.io/badge/java-17-%2300599C">
     <img alt="vuejs" src="https://img.shields.io/badge/vuejs-2.x-blue">
 </div>
 <div>
@@ -27,6 +27,8 @@
 Java Web 课程的项目, 项目名字来自明日方舟 :stuck_out_tongue_closed_eyes::stuck_out_tongue_closed_eyes::stuck_out_tongue_closed_eyes:
 
 前端基于 VUE2.0 实现, 后端则是 spring 技术实现
+
+如果觉得不错的话, 麻烦点个star吧 :wink:​   
 
 画师: \_QuAn\_ (侵删)
 
