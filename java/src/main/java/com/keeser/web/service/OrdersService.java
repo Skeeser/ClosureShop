@@ -85,6 +85,58 @@ public class OrdersService {
 
     }
 
+    // 获取用户订单列表
+    public JSONObject getUserOrdersList(){
+        List<Orders> ordersList = null;
+
+        int allNum = 0;
+        try {
+            // 获取当前用户信息
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            User user = (User)authentication.getPrincipal();
+            int user_id = user.getId();
+
+
+            // 模糊搜索获取数量
+            allNum = ordersDAO.countAllByIsCompleteOrderAndUserId('是', user_id);
+            Sort sort = Sort.by(Sort.Direction.DESC, "orderNumber");
+            ordersList = ordersDAO.findAllByIsCompleteOrderAndUserId('是', user_id);
+
+        }catch (Exception e){
+            return new ResultMetaJson(ResultCode.STATUS_BAD_REQUEST, "获取用户订单列表发生异常").getMetaJson();
+        }
+
+        JSONObject retJson = new ResultMetaJson(ResultCode.STATUS_OK, "获取用户订单列表成功").getMetaJson();
+        JSONObject dataJson = new JSONObject();
+        dataJson.put("total", allNum);
+   
+        ArrayList<JSONObject> ordersJsonList = new ArrayList<JSONObject>();
+        // 生成商品列表
+        for(Orders order : ordersList){
+            JSONObject orderJson = new JSONObject();
+            orderJson.put("order_id", order.getOrderId());
+            orderJson.put("user_id", order.getUserId());
+            orderJson.put("order_number", order.getOrderNumber());
+            orderJson.put("order_price", order.getOrderPrice());
+            orderJson.put("order_pay", order.getOrderPay());
+            orderJson.put("is_send", order.getIsSend());
+            orderJson.put("trade_no", order.getTradeNo());
+            orderJson.put("order_fapiao_title", order.getOrderFapiaoTitle());
+            orderJson.put("order_fapiao_company", order.getOrderFapiaoCompany());
+            orderJson.put("order_fapiao_content", order.getOrderFapiaoContent());
+            orderJson.put("consignee_addr", order.getConsigneeAddr());
+            orderJson.put("pay_status", order.getPayStatus());
+            orderJson.put("create_time", order.getCreateTime());
+            orderJson.put("update_time", order.getUpdateTime());
+            ordersJsonList.add(orderJson);
+        }
+        dataJson.put("goods", ordersJsonList);
+        retJson.put("data", dataJson);
+
+        return retJson;
+
+    }
+
     // 插入空的订单并返回订单号
     private  int getNewOders(int user_id){
         try{

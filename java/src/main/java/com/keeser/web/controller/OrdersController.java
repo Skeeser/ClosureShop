@@ -20,6 +20,16 @@ public class OrdersController {
         return ordersService.getOrdersList(query, pagenum, pagesize);
     }
 
+
+    @CrossOrigin  // 处理跨域资源共享（CORS）
+    @GetMapping(value = "/api/orders/user")
+    @ResponseBody  // 表示方法的返回值将直接作为 HTTP 响应的内容返回，而不是寻找视图解析器来解析为视图
+    public JSONObject getOrdersList() {
+
+        return ordersService.getUserOrdersList();
+    }
+
+
     @CrossOrigin  // 处理跨域资源共享（CORS）
     @PostMapping(value = "/api/orders")
     @ResponseBody  // 表示方法的返回值将直接作为 HTTP 响应的内容返回，而不是寻找视图解析器来解析为视图

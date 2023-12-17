@@ -14,8 +14,10 @@ import java.util.List;
 public interface OrdersDAO extends JpaRepository<Orders, Integer> {
 
     int countAllByOrderNumberLike(String query);
+    int countAllByIsCompleteOrderAndUserId(char isCompleteOrder, int user_id);
 
     List<Orders> findAllByOrderNumberLike(String query, Pageable pageable);
+    List<Orders> findAllByIsCompleteOrderAndUserId(char isCompleteOrder, int user_id);
 
     Orders findByOrderId(int order_id);
     Orders findByUserIdAndIsCompleteOrder(int user_id,  char ch);
