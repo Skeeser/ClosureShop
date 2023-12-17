@@ -21,11 +21,11 @@ public class ReportsService {
 
     // 获取热度统计
     public JSONObject getHotNumberReport(){
-        ArrayList<Goods>  goodsArrayList = new ArrayList<>();
+        ArrayList<Goods>  goodsArrayList = null;
         ArrayList<JSONObject> dataArray = new ArrayList<>();
         try{
 
-            goodsArrayList = goodsDAO.findTop10ByOrderByHotNumberDesc();
+            goodsArrayList = goodsDAO.findTop15ByOrderByHotNumberDesc();
             for(Goods goods: goodsArrayList){
                 JSONObject dataJson = new JSONObject();
                 dataJson.put("goods_name", goods.getGoodsName());

@@ -33,7 +33,7 @@ public interface GoodsDAO extends JpaRepository<Goods, Integer> {
     @Transactional  // 如果发生unchecked exception，就会发生rollback, 不加无法删除操作
     void deleteByGoodsId(int goodId);
 
-    ArrayList<Goods> findTop10ByOrderByHotNumberDesc();
+    ArrayList<Goods> findTop15ByOrderByHotNumberDesc();
 
 
 }
