@@ -204,6 +204,7 @@ export default {
 
     createOrderDialogOpened() {
       // this.getOrderList()
+
       this.createOrdersForm.order_price = 0
       // 结算金额
       this.orderList.forEach((item) => {
@@ -214,7 +215,21 @@ export default {
     createOrderDialogClosed() {
       this.$refs.createOrdersFormRef.resetFields()
     },
-    createOrder() {},
+    // 生成新的订单
+    async createOrder() {
+      // post请求
+      const { data: res } = await this.$http.post(
+        'orders',
+        this.createOrdersForm
+      )
+      if (res.meta.status !== 201) {
+        this.$message.error('添加订单失败！')
+        return
+      }
+      this.$message.success('添加订单成功！')
+      // 隐藏添加订单框
+      this.createOrderDialogVisible = false
+    },
     // 删除购物车中的某个商品
     async removeGoodsById(id) {
       const confirmResult = await this.$confirm(
