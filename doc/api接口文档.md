@@ -2249,11 +2249,11 @@ brew install GraphicsMagick
 - 请求方法：post
 - 请求参数
 
-| 参数名    | 参数说明  | 备注                                                        |
-| --------- | --------- | ----------------------------------------------------------- |
-| cat_pid   | 分类父 ID | 不能为空，如果要添加1级分类，则父分类Id应该设置为  `0`      |
-| cat_name  | 分类名称  | 不能为空                                                    |
-| cat_level | 分类层级  | 不能为空，`0`表示一级分类；`1`表示二级分类；`2`表示三级分类 |
+| 参数名   | 参数说明 | 备注     |
+| -------- | -------- | -------- |
+| order_id | 订单id   | 不能为空 |
+|          |          |          |
+|          |          |          |
 
 - 响应数据
 
@@ -2266,7 +2266,7 @@ brew install GraphicsMagick
         "cat_level": "1"
     },
     "meta": {
-        "msg": "创建成功",
+        "msg": "购买成功",
         "status": 201
     }
 }
@@ -2274,57 +2274,3 @@ brew install GraphicsMagick
 
 
 
-### 1.10.1. 订单数据列表
-
-- 请求路径：orders
-- 请求方法：get
-- 请求参数
-
-| 参数名               | 参数说明        | 备注     |
-| -------------------- | --------------- | -------- |
-| query                | 查询参数        | 可以为空 |
-| pagenum              | 当前页码        | 不能为空 |
-| pagesize             | 每页显示条数    | 不能为空 |
-| user_id              | 用户 ID         | 可以为空 |
-| pay_status           | 支付状态        | 可以为空 |
-| is_send              | 是否发货        | 可以为空 |
-| order_fapiao_title   | ['个人','公司'] | 可以为空 |
-| order_fapiao_company | 公司名称        | 可以为空 |
-| order_fapiao_content | 发票内容        | 可以为空 |
-| consignee_addr       | 发货地址        | 可以为空 |
-
-- 响应数据
-
-```
-{
-    "data": {
-        "total": 1,
-        "pagenum": "1",
-        "goods": [
-            {
-                "order_id": 47,
-                "user_id": 133,
-                "order_number": "itcast-59e7502d7993d",
-                "order_price": 322,
-                "order_pay": "1",
-                "is_send": "是",
-                "trade_no": "",
-                "order_fapiao_title": "个人",
-                "order_fapiao_company": "",
-                "order_fapiao_content": "办公用品",
-                "consignee_addr": "a:7:{s:6:\"cgn_id\";i:1;s:7:\"user_id\";i:133;s:8:\"cgn_name\";s:9:\"王二柱\";s:11:\"cgn_address\";s:51:\"北京市海淀区苏州街长远天地大厦305室\";s:7:\"cgn_tel\";s:11:\"13566771298\";s:8:\"cgn_code\";s:6:\"306810\";s:11:\"delete_time\";N;}",
-                "pay_status": "1",
-                "create_time": 1508331565,
-                "update_time": 1508331565
-            },
-            ...
-        ]
-    },
-    "meta": {
-        "msg": "获取成功",
-        "status": 200
-    }
-}
-```
-
-### 
