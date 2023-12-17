@@ -205,4 +205,14 @@ public class OrdersService {
         return new ResultMetaJson(ResultCode.STATUS_DELETED , "删除购物车商品成功").getMetaJson();
     }
 
+
+    // 增加订单
+    public JSONObject addOrders(JSONObject addOrderJson){
+        try {
+            // 获取订单对象
+        }catch (Exception e){
+            return new ResultMetaJson(ResultCode.STATUS_BAD_REQUEST, "添加购物车发生异常").getMetaJson();
+        }
+        return null;
+    }
 }
