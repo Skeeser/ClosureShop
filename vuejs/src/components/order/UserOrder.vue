@@ -49,14 +49,15 @@
             <el-button
               type="primary"
               size="mini"
-              icon="el-icon-edit"
+              icon="el-icon-s-goods"
               @click="showEditDialog"
-            ></el-button>
+              >支付</el-button
+            >
             <el-button
-              type="success"
+              type="danger"
               size="mini"
-              icon="el-icon-location"
-              @click="showProgressDialog"
+              icon="el-icon-delete"
+              @click="removeOrderById(scope.row.order_id)"
             ></el-button>
           </template>
         </el-table-column>
@@ -124,6 +125,27 @@ export default {
       }
       this.total = res.data.total
       this.orderList = res.data.goods
+    },
+    // 删除某个订单
+    async removeOrderById(id) {
+      const confirmResult = await this.$confirm(
+        '此操作将永久删除该订单, 是否继续?',
+        '提示',
+        {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }
+      ).catch((err) => err)
+      if (confirmResult !== 'confirm') {
+        return this.$message.info('已取消删除！')
+      }
+      const { data: res } = await this.$http.delete('orders/user/' + id)
+      if (res.meta.status !== 204) {
+        return this.$message.error('删除订单失败！')
+      }
+      this.$message.success('删除订单成功！')
+      this.getOrderList()
     },
     // 分页
     handleSizeChange(newSize) {

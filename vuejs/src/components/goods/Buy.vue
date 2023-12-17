@@ -59,7 +59,7 @@
           <template slot-scope="scope">
             <el-button
               type="warning"
-              icon="iconfont icon-shangpin"
+              icon="el-icon-shopping-cart-2"
               @click="addOrderFormByScopeRow(scope.row)"
               >添加到购物车</el-button
             >
