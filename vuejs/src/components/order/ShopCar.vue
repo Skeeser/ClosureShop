@@ -222,10 +222,15 @@ export default {
         'orders',
         this.createOrdersForm
       )
-      if (res.meta.status !== 201) {
-        this.$message.error('添加订单失败！')
-        return
+      if (res.meta.status === 500) {
+        // 商品数量不足
+        // 获取商品名称
+        var goodsName = res.error.good_name
+        return this.$message.error(goodsName + '数量不足！')
+      } else if (res.meta.status !== 201) {
+        return this.$message.error('添加订单失败！')
       }
+
       this.$message.success('添加订单成功！')
       // 隐藏添加订单框
       this.createOrderDialogVisible = false
