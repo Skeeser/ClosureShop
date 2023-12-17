@@ -165,26 +165,30 @@ public class OrdersService {
             // 先找有没有没付款的订单
             orders = ordersDAO.findByUserIdAndIsCompleteOrder(user_id, '否');
             if(orders == null){
-                throw new Exception("获取购物车失败, 可能为空");
+                // 说明为空, 创建新的订单
+                int orderId = getNewOders(user_id);
+                if(orderId == 0) {
+                    throw new Exception("创建新订单失败");
+                }
+                orders = ordersDAO.findByOrderId(orderId);
             }
             // 获取某个订单的所有商品
             ordersGoodsList = orders.getOrdersGoodsList();
+            if(ordersGoodsList != null){
+                for(OrdersGoods ordersGoods : ordersGoodsList){
+                    JSONObject tempJson = new JSONObject();
+                    int good_id =  ordersGoods.getGoodsId();
+                    tempJson.put("buycar_id", ordersGoods.getId());
+                    tempJson.put("goods_id", good_id);
+                    tempJson.put("buy_number", ordersGoods.getGoodsNumber());
+                    tempJson.put("all_price", ordersGoods.getGoodsTotalPrice());
+                    tempJson.put("goods_price", ordersGoods.getGoodsPrice());
+                    // 获取商品的名称信息
+                    tempJson.put("goods_name", goodsDAO.findByGoodsId(good_id).getGoodsName());
 
-
-            for(OrdersGoods ordersGoods : ordersGoodsList){
-                JSONObject tempJson = new JSONObject();
-                int good_id =  ordersGoods.getGoodsId();
-                tempJson.put("buycar_id", ordersGoods.getId());
-                tempJson.put("goods_id", good_id);
-                tempJson.put("buy_number", ordersGoods.getGoodsNumber());
-                tempJson.put("all_price", ordersGoods.getGoodsTotalPrice());
-                tempJson.put("goods_price", ordersGoods.getGoodsPrice());
-                // 获取商品的名称信息
-                tempJson.put("goods_name", goodsDAO.findByGoodsId(good_id).getGoodsName());
-
-                dataList.add(tempJson);
+                    dataList.add(tempJson);
+                }
             }
-
 
         }catch (Exception e){
             return new ResultMetaJson(ResultCode.STATUS_BAD_REQUEST, "获取购物车发生异常").getMetaJson();
@@ -211,9 +215,8 @@ public class OrdersService {
     // 增加订单
     public JSONObject addOrders(JSONObject addOrderJson){
         Orders orders = null;
-        List<OrdersGoods> ordersGoodsList = null;
-        ArrayList<JSONObject> dataList = new ArrayList<>();
 
+        JSONObject dataJson = new JSONObject();
         try{
             // 获取当前用户信息
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -225,6 +228,7 @@ public class OrdersService {
             if(orders == null){
                 throw new Exception("获取购物车失败, 可能为空");
             }
+            dataJson.put("order_id", orders.getOrderId());
             // 更新订单信息
             orders.setOrderPay(addOrderJson.getString("order_pay").charAt(0));
             orders.setOrderPrice(addOrderJson.getDouble("order_price"));
@@ -239,8 +243,8 @@ public class OrdersService {
             return new ResultMetaJson(ResultCode.STATUS_BAD_REQUEST, "添加订单发生异常").getMetaJson();
         }
 
-        JSONObject retJson = new ResultMetaJson(ResultCode.STATUS_OK, "添加订单成功").getMetaJson();
-        retJson.put("data", dataList);
+        JSONObject retJson = new ResultMetaJson(ResultCode.STATUS_CREATED, "添加订单成功").getMetaJson();
+        retJson.put("data", dataJson);
         return retJson;
     }
 }
