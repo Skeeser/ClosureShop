@@ -41,13 +41,13 @@
             <el-tag
               type="success"
               size="mini"
-              v-if="scope.row.order_pay === '2'"
+              v-else-if="scope.row.order_pay === '2'"
               >微信</el-tag
             >
             <el-tag
               type="warning"
               size="mini"
-              v-if="scope.row.order_pay === '3'"
+              v-else-if="scope.row.order_pay === '3'"
               >银行卡</el-tag
             >
             <el-tag type="danger" size="mini" v-else>未指定支付方式</el-tag>
@@ -73,7 +73,7 @@
               type="primary"
               size="mini"
               icon="el-icon-s-goods"
-              @click="showEditDialog"
+              @click="payBy"
               >支付</el-button
             >
             <el-button

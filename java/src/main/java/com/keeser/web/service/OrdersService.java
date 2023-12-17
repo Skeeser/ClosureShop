@@ -280,6 +280,10 @@ public class OrdersService {
                 for(OrdersGoods ordersGoods : ordersGoodsList){
                     // 先把实体类对象给删除了
                     orderGoodsIds.add(ordersGoods.getId());
+                    // 要把原本占据的商品数量还回去
+                    Goods goods = goodsDAO.findByGoodsId(ordersGoods.getGoodsId());
+                    goods.setGoodsNumber(goods.getGoodsNumber() + ordersGoods.getGoodsNumber());
+                    goodsDAO.save(goods);
                 }
 
                 ordersGoodsList.clear();
