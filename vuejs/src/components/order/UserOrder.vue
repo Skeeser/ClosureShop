@@ -44,7 +44,7 @@
             (scope.row.create_time * 1000) | dataFormat
           }}</template>
         </el-table-column>
-        <!-- <el-table-column label="操作">
+        <el-table-column label="操作">
           <template slot>
             <el-button
               type="primary"
@@ -59,10 +59,10 @@
               @click="showProgressDialog"
             ></el-button>
           </template>
-        </el-table-column> -->
+        </el-table-column>
       </el-table>
       <!-- 分页区域 -->
-      <el-pagination
+      <!-- <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="queryInfo.pagenum"
@@ -70,56 +70,8 @@
         :page-size="queryInfo.pagesize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="total"
-      ></el-pagination>
+      ></el-pagination> -->
     </el-card>
-
-    <!-- 编辑对话框 -->
-    <!-- <el-dialog
-      title="修改地址"
-      :visible.sync="addressDialogVisible"
-      width="50%"
-      @close="addressDialogClosed"
-    >
-      <el-form
-        :model="addressForm"
-        :rules="addressFormRules"
-        ref="addressFormRef"
-        label-width="100px"
-      >
-        <el-form-item label="省市区/县" prop="address1">
-          <el-cascader
-            v-model="addressForm.address1"
-            :options="cityData"
-            :props="{ expandTrigger: 'hover' }"
-          ></el-cascader>
-        </el-form-item>
-        <el-form-item label="详细地址" prop="address2">
-          <el-input v-model="addressForm.address2"></el-input>
-        </el-form-item>
-      </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="addressDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible = false"
-          >确 定</el-button
-        >
-      </span>
-    </el-dialog> -->
-    <!-- 展示物流进度对话框 -->
-    <!-- <el-dialog
-      title="查看物流进度"
-      :visible.sync="progressDialogVisible"
-      width="50%"
-    >
-     时间线
-      <el-timeline>
-        <el-timeline-item
-          v-for="(activity, index) in progressInfo"
-          :key="index"
-          :timestamp="activity.time"
-          >{{ activity.context }}</el-timeline-item
-        >
-      </el-timeline>
-    </el-dialog> -->
   </div>
 </template>
 
@@ -164,7 +116,7 @@ export default {
   },
   methods: {
     async getOrderList() {
-      const { data: res } = await this.$http.get('orders', {
+      const { data: res } = await this.$http.get('orders/user', {
         params: this.queryInfo
       })
       if (res.meta.status !== 200) {
