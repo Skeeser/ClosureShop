@@ -56,7 +56,14 @@ public class OrdersController {
     @CrossOrigin  // 处理跨域资源共享（CORS）
     @DeleteMapping(value = "/api/orders/goods/{id}")
     @ResponseBody  // 表示方法的返回值将直接作为 HTTP 响应的内容返回，而不是寻找视图解析器来解析为视图
-    public JSONObject editGoodsById(@PathVariable(name = "id") int id) {
+    public JSONObject deleteBuyCarGoodsById(@PathVariable(name = "id") int id) {
         return ordersService.deleteBuyCarGoodsById(id);
+    }
+
+    @CrossOrigin  // 处理跨域资源共享（CORS）
+    @DeleteMapping(value = "/api/orders/user/{id}")
+    @ResponseBody  // 表示方法的返回值将直接作为 HTTP 响应的内容返回，而不是寻找视图解析器来解析为视图
+    public JSONObject deleteOrderById(@PathVariable(name = "id") int id) {
+        return ordersService.deleteOrderById(id);
     }
 }

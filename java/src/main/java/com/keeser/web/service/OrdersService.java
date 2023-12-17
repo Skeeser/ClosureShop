@@ -263,6 +263,17 @@ public class OrdersService {
         return new ResultMetaJson(ResultCode.STATUS_DELETED , "删除购物车商品成功").getMetaJson();
     }
 
+    // 删除某个订单的商品
+    public JSONObject deleteOrderById(int id){
+        try{
+            ordersDAO.deleteById(id);
+        }catch (Exception e) {
+            return new ResultMetaJson(ResultCode.STATUS_BAD_REQUEST , "删除订单发生异常").getMetaJson();
+        }
+
+        return new ResultMetaJson(ResultCode.STATUS_DELETED , "删除订单成功").getMetaJson();
+    }
+
 
     // 增加订单
     public JSONObject addOrders(JSONObject addOrderJson){
