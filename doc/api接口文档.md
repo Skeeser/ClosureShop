@@ -2155,7 +2155,7 @@ brew install GraphicsMagick
 
 ### 1.11.1.  基于时间统计的折线图
 
-- 请求路径：reports/type/1
+- 请求路径：reports
 
 - 请求方法：get
 
@@ -2195,47 +2195,6 @@ brew install GraphicsMagick
           ]
         }
   ```
-
-
-
-### 1.10.6 添加订单
-
-- 请求路径：orders
-- 请求方法：post
-- 请求参数
-
-| 参数名      | 参数说明   | 备注     |
-| ----------- | ---------- | -------- |
-| order_pay   | 支付方式   | 不能为空 |
-| order_price | 订单总价格 | 不能为空 |
-
-
-
-- 响应参数
-
-| 参数名   | 参数说明 | 备注 |
-| -------- | -------- | ---- |
-| order_id | 订单ID   |      |
-|          |          |      |
-|          |          |      |
-
-- 响应数据
-
-```json
-{
-    "data": {
-        "roleId": 40,
-        "roleName": "admin2",
-        "roleDesc": "admin2Desc"
-    },
-    "meta": {
-        "msg": "创建成功",
-        "status": 201
-    }
-}
-```
-
-
 
 
 
