@@ -237,6 +237,35 @@ public class OrdersService {
             orders.setIsCompleteOrder('是');
             // 设置更新时间
             orders.setUpdateTime(new Date().getTime() / 1000 );
+
+            // 更新对应商品的信息
+            List<OrdersGoods> ordersGoodsList = orders.getOrdersGoodsList();
+            for(OrdersGoods ordersGoods: ordersGoodsList){
+                // 获取商品id
+                int good_id = ordersGoods.getGoodsId();
+                // 获取商品对象
+                Goods goods = goodsDAO.findByGoodsId(good_id);
+                // 更新商品属性
+                goods.setUpdTime(new Date().getTime() / 1000);
+                // 更新热键
+                goods.setHotNumber(goods.getHotNumber() + 1);
+                // 商品剩余数量
+                int resGoodsNumber =  goods.getGoodsNumber() - ordersGoods.getGoodsNumber();
+                if(resGoodsNumber < 0){
+                    JSONObject retJson = new ResultMetaJson(ResultCode.STATUS_INTERNAL_SERVER_ERROR, "商品数量不足").getMetaJson();
+                    // 返回数量不足信息
+                    JSONObject tempJson = new JSONObject();
+                    tempJson.put("good_id", good_id);
+                    tempJson.put("good_name", goods.getGoodsName());
+                    retJson.put("error", tempJson);
+                    return retJson;
+                }
+                // 更新数量
+                goods.setGoodsNumber(resGoodsNumber);
+                goodsDAO.save(goods);
+            }
+
+
             ordersDAO.save(orders);
 
         }catch (Exception e){
