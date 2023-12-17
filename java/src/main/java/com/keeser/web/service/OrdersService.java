@@ -4,12 +4,14 @@ package com.keeser.web.service;
 import com.alibaba.fastjson.JSONObject;
 import com.keeser.web.common.ResultCode;
 import com.keeser.web.common.ResultMetaJson;
+import com.keeser.web.dao.GoodsDAO;
 import com.keeser.web.dao.OrdersDAO;
 import com.keeser.web.dao.OrdersGoodsDAO;
 import com.keeser.web.entity.Goods;
 import com.keeser.web.entity.Orders;
 import com.keeser.web.entity.OrdersGoods;
 import com.keeser.web.entity.User;
+import jakarta.json.Json;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +30,9 @@ public class OrdersService {
 
     @Autowired
     OrdersGoodsDAO ordersGoodsDAO;
+
+    @Autowired
+    GoodsDAO goodsDAO;
 
     // 获取订单列表
     public JSONObject getOrdersList(String query,  int pagenum, int pagessize){
@@ -91,7 +96,7 @@ public class OrdersService {
     }
 
     // 添加购物车
-    public JSONObject  addOrders(JSONObject addOdersGoodsJson){
+    public JSONObject  addOrdersBuyCar(JSONObject addOdersGoodsJson){
 
         Orders orders = null;
 
@@ -143,4 +148,47 @@ public class OrdersService {
         return retJson;
     }
 
+    // 获取购物车的所有信息
+    public JSONObject getOrdersBuyCar(){
+        Orders orders = null;
+        List<OrdersGoods> ordersGoodsList = null;
+        ArrayList<JSONObject> dataList = new ArrayList<>();
+
+        try{
+            // 获取当前用户信息
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            User user = (User)authentication.getPrincipal();
+            int user_id = user.getId();
+
+            // 先找有没有没付款的订单
+            orders = ordersDAO.findByUserIdAndIsCompleteOrder(user_id, '否');
+            if(orders == null){
+                throw new Exception("获取购物车失败, 可能为空");
+            }
+            // 获取某个订单的所有商品
+            ordersGoodsList = orders.getOrdersGoodsList();
+
+
+            for(OrdersGoods ordersGoods : ordersGoodsList){
+                JSONObject tempJson = new JSONObject();
+                int good_id =  ordersGoods.getGoodsId();
+                tempJson.put("goods_id", good_id);
+                tempJson.put("buy_number", ordersGoods.getGoodsNumber());
+                tempJson.put("all_price", ordersGoods.getGoodsTotalPrice());
+                tempJson.put("goods_price", ordersGoods.getGoodsPrice());
+                // 获取商品的名称信息
+                tempJson.put("goods_name", goodsDAO.findByGoodsId(good_id).getGoodsName());
+
+                dataList.add(tempJson);
+            }
+
+
+        }catch (Exception e){
+            return new ResultMetaJson(ResultCode.STATUS_BAD_REQUEST, "获取购物车发生异常").getMetaJson();
+        }
+
+        JSONObject retJson = new ResultMetaJson(ResultCode.STATUS_OK, "获取购物车成功").getMetaJson();
+        retJson.put("data", dataList);
+        return retJson;
+    }
 }

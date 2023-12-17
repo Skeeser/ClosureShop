@@ -56,6 +56,12 @@ const Buy = () =>
 
 const Order = () =>
   import(/* webpackChunkName: "Order_Report" */ '../components/order/Order.vue')
+
+const ShopCar = () =>
+  import(
+    /* webpackChunkName: "Order_Report" */ '../components/order/ShopCar.vue'
+  )
+
 const Report = () =>
   import(
     /* webpackChunkName: "Order_Report" */ '../components/report/Report.vue'
@@ -81,7 +87,8 @@ const routes = [
       { path: '/goods/add', component: Add },
       { path: '/orders', component: Order },
       { path: '/reports', component: Report },
-      { path: '/goods/buy', component: Buy }
+      { path: '/goods/buy', component: Buy },
+      { path: '/orders/shopcar', component: ShopCar }
     ]
   }
 ]
