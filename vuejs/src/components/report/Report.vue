@@ -32,7 +32,7 @@ export default {
     var myChart = echarts.init(document.getElementById('main'))
     const { data: res } = await this.$http.get('reports')
     if (res.meta.status !== 200) return this.$message('获取折线图数据失败!')
-
+    console.log(res.data)
     var xData = []
     var yData = []
     res.data.forEach((element) => {
@@ -52,7 +52,7 @@ export default {
     // 指定图表的配置项和数据
     var option = {
       title: {
-        text: '商品的热度统计'
+        text: '商品的热度统计(前15热度)'
       },
       tooltip: {},
       legend: {
@@ -83,7 +83,6 @@ export default {
       ]
     }
 
-    console.log(xData.length)
     // 数据合并
     // const result = _.merge(res.data, this.options)
     // 5.展示数据
