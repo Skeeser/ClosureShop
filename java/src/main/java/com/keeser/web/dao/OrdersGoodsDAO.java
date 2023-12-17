@@ -8,4 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 @EntityScan("com.keeser.web.entity.OrdersGoods")
 public interface OrdersGoodsDAO extends JpaRepository<OrdersGoods, Integer> {
+
+    // 删除
+    void deleteById(int id);
+
 }

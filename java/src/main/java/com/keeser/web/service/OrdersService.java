@@ -192,4 +192,17 @@ public class OrdersService {
         retJson.put("data", dataList);
         return retJson;
     }
+
+
+    // 删除购物车的商品
+    public JSONObject deleteBuyCarGoodsById(int id){
+        try{
+            ordersGoodsDAO.deleteById(id);
+        }catch (Exception e) {
+            return new ResultMetaJson(ResultCode.STATUS_BAD_REQUEST , "删除购物车商品发生异常").getMetaJson();
+        }
+
+        return new ResultMetaJson(ResultCode.STATUS_DELETED , "删除购物车商品成功").getMetaJson();
+    }
+
 }

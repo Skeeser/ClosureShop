@@ -17,4 +17,6 @@ public interface PermissionDAO extends JpaRepository<Permission, Integer>{
 //                "FROM sp_permission_api as api LEFT JOIN sp_permission as main ON main.ps_id = api.ps_id " +
 //                "WHERE main.ps_id is not null;")
     List<Permission> findAll();
+
+
 }
