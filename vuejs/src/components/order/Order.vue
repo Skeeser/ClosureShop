@@ -32,7 +32,10 @@
         <el-table-column label="订单价格" prop="order_price"></el-table-column>
         <el-table-column label="是否付款">
           <template slot-scope="scope">
-            <el-tag type="danger" size="mini" v-if="scope.row.pay_status"
+            <el-tag
+              type="danger"
+              size="mini"
+              v-if="scope.row.pay_status !== '1'"
               >未付款</el-tag
             >
             <el-tag type="success" size="mini" v-else>已付款</el-tag>
