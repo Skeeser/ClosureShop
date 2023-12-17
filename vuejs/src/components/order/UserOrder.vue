@@ -55,7 +55,10 @@
         </el-table-column>
         <el-table-column label="是否付款">
           <template slot-scope="scope">
-            <el-tag type="danger" size="mini" v-if="scope.row.pay_status"
+            <el-tag
+              type="danger"
+              size="mini"
+              v-if="scope.row.pay_status !== '1'"
               >未付款</el-tag
             >
             <el-tag type="success" size="mini" v-else>已付款</el-tag>
@@ -189,7 +192,7 @@ export default {
       }
 
       this.payForm.order_id = id
-      const { data: res } = await this.$http.post('orders/user/', this.payForm)
+      const { data: res } = await this.$http.post('buy', this.payForm)
       if (res.meta.status !== 200) {
         return this.$message.error('支付订单失败！')
       }
