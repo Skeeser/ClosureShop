@@ -2047,6 +2047,7 @@ brew install GraphicsMagick
 
 | 参数名      | 参数说明 | 备注     |
 | ----------- | -------- | -------- |
+| buycar_id   | 购物车ID | 不能为空 |
 | goods_id    | 商品 ID  | 不能为空 |
 | goods_name  | 商品名称 | 不能为空 |
 | goods_price | 价格     | 不能为空 |

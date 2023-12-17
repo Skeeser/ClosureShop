@@ -8,7 +8,7 @@
     </el-breadcrumb>
     <!-- 卡片视图 -->
     <el-card>
-      <el-row>
+      <el-row :gutter="20">
         <el-col :span="6">
           <el-input
             placeholder="请输入内容"
@@ -67,7 +67,7 @@
         </el-table-column> -->
       </el-table>
       <!-- 分页区域 -->
-      <el-pagination
+      <!-- <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="queryInfo.pagenum"
@@ -75,7 +75,7 @@
         :page-size="queryInfo.pagesize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="total"
-      ></el-pagination>
+      ></el-pagination> -->
     </el-card>
 
     <!-- 编辑对话框 -->
@@ -169,14 +169,15 @@ export default {
   },
   methods: {
     async getOrderList() {
-      const { data: res } = await this.$http.get('orders', {
+      const { data: res } = await this.$http.get('orders/goods', {
         params: this.queryInfo
       })
       if (res.meta.status !== 200) {
-        return this.$message.error('获取订单列表失败！')
+        return this.$message.error('获取购物车表失败！')
       }
-      this.total = res.data.total
-      this.orderList = res.data.goods
+      console.log(res)
+      // this.total = res.data.total
+      this.orderList = res.data
     },
     // 分页
     handleSizeChange(newSize) {

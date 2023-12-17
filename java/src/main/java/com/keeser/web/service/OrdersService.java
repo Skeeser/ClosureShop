@@ -172,6 +172,7 @@ public class OrdersService {
             for(OrdersGoods ordersGoods : ordersGoodsList){
                 JSONObject tempJson = new JSONObject();
                 int good_id =  ordersGoods.getGoodsId();
+                tempJson.put("buycar_id", ordersGoods.getId());
                 tempJson.put("goods_id", good_id);
                 tempJson.put("buy_number", ordersGoods.getGoodsNumber());
                 tempJson.put("all_price", ordersGoods.getGoodsTotalPrice());
