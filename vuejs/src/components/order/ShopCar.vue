@@ -229,6 +229,8 @@ export default {
       this.$message.success('添加订单成功！')
       // 隐藏添加订单框
       this.createOrderDialogVisible = false
+      // 更新订单列表
+      this.getOrderList()
     },
     // 删除购物车中的某个商品
     async removeGoodsById(id) {

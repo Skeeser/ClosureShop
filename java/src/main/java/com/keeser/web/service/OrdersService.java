@@ -20,7 +20,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -208,11 +210,37 @@ public class OrdersService {
 
     // 增加订单
     public JSONObject addOrders(JSONObject addOrderJson){
-        try {
-            // 获取订单对象
+        Orders orders = null;
+        List<OrdersGoods> ordersGoodsList = null;
+        ArrayList<JSONObject> dataList = new ArrayList<>();
+
+        try{
+            // 获取当前用户信息
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            User user = (User)authentication.getPrincipal();
+            int user_id = user.getId();
+
+            // 先找有没有没付款的订单
+            orders = ordersDAO.findByUserIdAndIsCompleteOrder(user_id, '否');
+            if(orders == null){
+                throw new Exception("获取购物车失败, 可能为空");
+            }
+            // 更新订单信息
+            orders.setOrderPay(addOrderJson.getString("order_pay").charAt(0));
+            orders.setOrderPrice(addOrderJson.getDouble("order_price"));
+            // 更新别的信息
+            // 设置订单结算
+            orders.setIsCompleteOrder('是');
+            // 设置更新时间
+            orders.setUpdateTime(new Date().getTime() / 1000 );
+            ordersDAO.save(orders);
+
         }catch (Exception e){
-            return new ResultMetaJson(ResultCode.STATUS_BAD_REQUEST, "添加购物车发生异常").getMetaJson();
+            return new ResultMetaJson(ResultCode.STATUS_BAD_REQUEST, "添加订单发生异常").getMetaJson();
         }
-        return null;
+
+        JSONObject retJson = new ResultMetaJson(ResultCode.STATUS_OK, "添加订单成功").getMetaJson();
+        retJson.put("data", dataList);
+        return retJson;
     }
 }
