@@ -52,7 +52,7 @@ Spring Boot
 ### application.properties文件
 因为涉及账号密码, 暂不开源
 src/main/resources/application.properties  
-项目完成记得开源  
+参照上面的写法即可    
 
 ### spring连接数据库
 ssh -f <user>@<jump_host_ip> -L <local_host_ip>:<arbitrary_local_port>:<db_host_ip>:<db_port> -N -i <private_key>
