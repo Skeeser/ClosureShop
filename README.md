@@ -79,10 +79,10 @@ Java Web 课程的项目, 项目名字来自明日方舟 :stuck_out_tongue_close
 - 后台销售统计报表，销售状态
 
 ## 文件结构
-├─assets => 存放静态资源
-├─vuejs => 存放前端代码
-├─java => 存放后端代码
-└─doc => 存放开发文档
+├─assets => 存放静态资源  
+├─vuejs => 存放前端代码  
+├─java => 存放后端代码  
+└─doc => 存放开发文档  
 
 <br>
 
@@ -126,10 +126,6 @@ npm run build
 npm run lint
 ```
 
-
-
-<br>
-
 ### 后端
 配置maven环境后  
 
@@ -139,6 +135,7 @@ npm run lint
 mvn package
 ```
 
+<br>
 
 ## 部署和运行
 ### 前端
