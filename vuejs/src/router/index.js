@@ -100,6 +100,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
+  base: '/admin/',
   routes
 })
 

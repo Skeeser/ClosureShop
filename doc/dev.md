@@ -15,6 +15,13 @@ Vue
 http and ip.addr == 127.0.0.1 and tcp.port == 8888
 ```
 
+### 服务器安装nginx  
+```shell
+sudo apt-get install nginx  
+nginx -v
+service nginx start
+```
+
 <br>
 
 ## Web后端

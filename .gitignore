@@ -22,6 +22,7 @@
 /vuejs/.DS_Store
 /vuejs/node_modules
 /vuejs/dist
+/vuejs/admin  
 /vuejs/.env.local
 /vuejs/.env.*.local
 /vuejs/npm-debug.log*
