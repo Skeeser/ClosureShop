@@ -73,11 +73,13 @@ Artist: \_QuAn\_ (deleted upon request)
 - Log of browsing/purchasing by customers
 - Backend sales statistics report, sales status
 
+<br>
+
 ## File Structure
-├─assets => Stores static resources
-├─vuejs => Stores frontend code
-├─java => Stores backend code
-└─doc => Stores development documents
+├─assets => Stores static resources  
+├─vuejs => Stores frontend code  
+├─java => Stores backend code  
+└─doc => Stores development documents  
 
 <br>
 
@@ -121,8 +123,6 @@ npm run build
 npm run lint
 ```
 
-<br>
-
 ### Backend
 After configuring the maven environment
 
@@ -130,6 +130,8 @@ Execute the following command to package and generate a jar file
 ```shell
 mvn package
 ```
+
+<br>
 
 ## Deployment and Running
 ### Frontend
@@ -185,4 +187,3 @@ keeser
 ## License
 
 MPL 2.0
-
