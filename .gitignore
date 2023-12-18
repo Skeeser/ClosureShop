@@ -29,7 +29,7 @@
 /vuejs/yarn-debug.log*
 /vuejs/yarn-error.log*
 /java/src/main/resources/application.properties
-
+/vuejs/*.zip
 
 # java
 

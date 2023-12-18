@@ -68,6 +68,9 @@ https://blog.csdn.net/qq_50969362/article/details/134100542
 ### jpa连表实现
 https://blog.51cto.com/u_15067236/4193000  
 
+### 服务器启动jar
+java -Djdk.util.jar.enableMultiRelease=false -jar Web-0.0.1-SNAPSHOT.jar
+
 
 
 ### todos
