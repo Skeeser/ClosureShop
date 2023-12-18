@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-// import './plugins/element.js'
+
+import './plugins/element.js'
 // 导入全局样式
 import './assets/css/global.css'
 // 导入字体图标
@@ -11,13 +12,13 @@ import TreeTable from 'vue-table-with-tree-grid'
 // 导入富文本编辑器
 import VueQuillEditor from 'vue-quill-editor'
 // 导入富文本编辑器样式
-// import 'quill/dist/quill.core.css'
-// import 'quill/dist/quill.snow.css'
-// import 'quill/dist/quill.bubble.css'
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
 
 // 导入NProgress, 包对应的JS和CSS
 import NProgress from 'nprogress'
-// import 'nprogress/nprogress.css'
+import 'nprogress/nprogress.css'
 
 import axios from 'axios'
 // 配置请求根路径
