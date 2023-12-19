@@ -19,7 +19,6 @@ import java.util.List;
 
 
 // 商品管理的服务类
-
 @Service
 public class GoodsService {
     @Autowired
